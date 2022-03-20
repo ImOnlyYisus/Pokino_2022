@@ -19,6 +19,7 @@ public class Carta {
         return numero;
     }
 
+    //Equals is when a card simbol and card number is the same than the other
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

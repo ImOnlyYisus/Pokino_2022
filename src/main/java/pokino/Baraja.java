@@ -12,6 +12,7 @@ public class Baraja {
         inicializarBaraja();
     }
 
+    //Method that fill the list with 48 cards
     private void inicializarBaraja(){
         for (int i = 0; i <Simbolo.values().length ; i++) {
             for (int j = 0; j <12 ; j++) {
@@ -37,18 +38,22 @@ public class Baraja {
         return cartas;
     }
 
+    //Print baraja in console
     public void imprimirCartas(){
         cartas.forEach(System.out::println);
     }
 
+    //Mixing the baraja
     public void shuffleBaraja(){
         Collections.shuffle(cartas);
     }
 
+    //Remove a card from list by passing specific card
     public void remove(Carta carta){
         cartas.remove(carta);
     }
 
+    //Method that search a card by passing the number by parameter
     public Carta buscarCartaNumero(int numero){
        Carta cartaBuscada=null;
        Comparator<Carta> criterioNumero = (c1,c2)-> Integer.compare(c1.getNumero(),c2.getNumero());
@@ -62,6 +67,7 @@ public class Baraja {
         return cartaBuscada;
     }
 
+    //Method that search all cards in the baraja by passing the number by parameter
     public ArrayList<Carta> buscarCartasNumeros(int numero){
         ArrayList<Carta> cartasBuscadas=new ArrayList<>();
         for (int i = 0; i <cartas.size() ; i++) {
@@ -73,10 +79,12 @@ public class Baraja {
         return cartasBuscadas;
     }
 
+    //Return the size of the actual baraja
     public int numeroCartas(){
         return cartas.size();
     }
 
+    //Return a random card of baraja
     public Carta obtenerCartaAleatoria(){
         Random rd = new Random();
         if(!cartas.isEmpty()) {
