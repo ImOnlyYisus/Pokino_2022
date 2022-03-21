@@ -118,9 +118,14 @@ public class Cartones {
             esIgual = false;
             for (int i = 0; i < carton.length; i++) {
                 for (int j = 0; j < carton[i].length; j++) {
+<<<<<<< Updated upstream
                     cartaAleatoria = baraja.obtenerCartaAleatoria();
                     if (!(cartaAleatoria.equals(carton[i][j]))) {
                         if (carton[i][j] == null) {
+=======
+                    if (!(cartaAleatoria.equals(baraja.getCartas()))) {
+                        if(carton[i][j] == null){
+>>>>>>> Stashed changes
                             carton[i][j] = cartaAleatoria;
                         }
                     } else {
