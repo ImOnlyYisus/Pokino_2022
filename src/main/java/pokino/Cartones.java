@@ -21,6 +21,7 @@ public class Cartones {
             rellenarF1(carton, baraja1);
             rellenarF2(carton, baraja2Trio, baraja2Pareja);
             rellenarCentro(carton);
+            rellenarNullos(carton);
 
         }
     }
@@ -106,5 +107,28 @@ public class Cartones {
             carton.imprimirCarton();
             System.out.println("*********************************************************");
         }
+    }
+
+    //Rellenar todos los null, introduciendo una carta aleatoria, sin que se repita en la baraja
+    private void rellenarNullos(Carta[][] carton) {
+        Baraja baraja = new Baraja();//creat new baraja
+        boolean esIgual = false;
+        int cartaAleatoria;
+        //do{//loop repeated when one of the cards we generate equal to other card exist
+           // esIgual = false;
+             cartaAleatoria=baraja.obtenerCartaAleatoria().getNumero();
+            for (int i = 0; i < carton.length; i++) {
+                for (int j = 0; j < carton[i].length; j++) {
+                    if (carton[i][j] == null) {
+                        carton[i][j] =baraja.buscarCartaNumero(cartaAleatoria);
+                        if (carton[i][j].getNumero() == cartaAleatoria) {
+                            rellenarNullos(carton);
+                        }
+                    }
+                }
+            }
+        //}while(esIgual);
+
+
     }
 }
