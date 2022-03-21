@@ -138,6 +138,10 @@ public class Cartones {
             }
         }
     }
+
+    public ArrayList<Carton> getCartones() {
+        return cartones;
+    }
 }
 
 
