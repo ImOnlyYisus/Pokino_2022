@@ -80,7 +80,7 @@ public class Cartones {
         int cartaSelect;
 
         boolean esIgual = false;
-        do {//Bucle to see if the card is in the other Carton, the bucle will repeat with the card will be in the other Carton
+        do{//Bucle to see if the card is in the other Carton, the bucle will repeat with the card will be in the other Carton
             esIgual = false;
             cartaSelect = baraja.obtenerCartaAleatoria().getNumero();
             for (int i = 0; i < 2; i++) {
@@ -113,23 +113,24 @@ public class Cartones {
     private void rellenarNullos(Carta[][] carton) {
         Baraja baraja = new Baraja();
         Carta cartaAleatoria;
-        boolean esIgual;
-        do{//loop repeated when one of the cards we generate equal to other card exist
+        boolean esIgual = false;
+        do {//loop repeated when one of the cards we generate equal to other card exist
             esIgual = false;
-            cartaAleatoria = baraja.obtenerCartaAleatoria();
             for (int i = 0; i < carton.length; i++) {
                 for (int j = 0; j < carton[i].length; j++) {
-                    if ((!cartaAleatoria.equals(carton))) {
-                        if(carton[i][j] == null){
+                    cartaAleatoria = baraja.obtenerCartaAleatoria();
+                    if (!(cartaAleatoria.equals(carton[i][j]))) {
+                        if (carton[i][j] == null) {
                             carton[i][j] = cartaAleatoria;
                         }
-                    }else{
-                        esIgual=true;
+                    } else {
+                        esIgual = true;
+                        break;
                     }
                 }
             }
-        }while(esIgual);
+        } while (esIgual);
 
     }
-    }
+}
 
