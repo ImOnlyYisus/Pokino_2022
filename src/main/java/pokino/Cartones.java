@@ -68,7 +68,7 @@ public class Cartones {
             } else {
                 Carta carta = barajaPareja.buscarCartaNumero(numeroCarta2); //Couple of same cards
                 carton[1][i] = carta;
-                baraja.remove(carta);
+                barajaPareja.remove(carta);
             }
         }
 
@@ -80,7 +80,8 @@ public class Cartones {
         int cartaSelect;
 
         boolean esIgual = false;
-        do{//Bucle to see if the card is in the other Carton, the bucle will repeat with the card will be in the other Carton
+        do
+        {//Bucle to see if the card is in the other Carton, the bucle will repeat with the card will be in the other Carton
             esIgual = false;
             cartaSelect = baraja.obtenerCartaAleatoria().getNumero();
             for (int i = 0; i < 2; i++) {
@@ -110,32 +111,34 @@ public class Cartones {
     }
 
     //Rellenar todos los null, introduciendo una carta aleatoria, sin que se repita en la baraja
-   private void rellenarNullos(Carta[][] carton) {
+    private void rellenarNullos(Carta[][] carton) {
         Baraja baraja = new Baraja();
         Carta cartaAleatoria;
         boolean esIgual = false;
-       // do {//loop repeated when one of the cards we generate equal to other card exist
-           // esIgual = false;
-            for (int i = 0; i < carton.length; i++) {
-                for (int j = 0; j < carton[i].length; j++) {
-                    cartaAleatoria = baraja.obtenerCartaAleatoria();
-                        if (carton[i][j] == null) {
-                            carton[i][j] = cartaAleatoria;
-                            do{
-                                esIgual=false;
-                                for(int k=0;k<carton.length;k++){
-                                    for(int l=0;l<carton[k].length;l++){
-                                        if(cartaAleatoria.getNumero()==carton[k][l].getNumero()){
-                                            esIgual=true;
-                                        }
-                                    }
-                                }
+        for (int i = 0; i < carton.length; i++) {
+            for (int j = 0; j < carton[i].length; j++) {
 
-                            }while(esIgual);
+                if (carton[i][j] == null) {
+                    do {//loop repeated when one of the cards we generate equal to other card exist
+                        cartaAleatoria = baraja.obtenerCartaAleatoria();
+                        esIgual = false;
+                        for (int k = 0; k < carton.length; k++) {
+                            for (int l = 0; l < carton[k].length; l++) {
+
+                                if (cartaAleatoria.equals(carton[k][l])) {
+                                    esIgual = true;
+                                    break;
+                                }
+                            }
                         }
+                        carton[i][j] = cartaAleatoria;
+
+                    } while (esIgual);
                 }
             }
-       // } while (esIgual);
+        }
     }
 }
+
+
 
