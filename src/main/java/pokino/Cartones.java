@@ -111,24 +111,25 @@ public class Cartones {
 
     //Rellenar todos los null, introduciendo una carta aleatoria, sin que se repita en la baraja
     private void rellenarNullos(Carta[][] carton) {
-        Baraja baraja = new Baraja();//creat new baraja
-        boolean esIgual = false;
-        int cartaAleatoria;
-        //do{//loop repeated when one of the cards we generate equal to other card exist
-           // esIgual = false;
-             cartaAleatoria=baraja.obtenerCartaAleatoria().getNumero();
+        Baraja baraja = new Baraja();
+        Carta cartaAleatoria;
+        boolean esIgual;
+        do{//loop repeated when one of the cards we generate equal to other card exist
+            esIgual = false;
+            cartaAleatoria = baraja.obtenerCartaAleatoria();
             for (int i = 0; i < carton.length; i++) {
                 for (int j = 0; j < carton[i].length; j++) {
-                    if (carton[i][j] == null) {
-                        carton[i][j] =baraja.buscarCartaNumero(cartaAleatoria);
-                        if (carton[i][j].getNumero() == cartaAleatoria) {
-                            rellenarNullos(carton);
+                    if ((!cartaAleatoria.equals(carton))) {
+                        if(carton[i][j] == null){
+                            carton[i][j] = cartaAleatoria;
                         }
+                    }else{
+                        esIgual=true;
                     }
                 }
             }
-        //}while(esIgual);
-
+        }while(esIgual);
 
     }
-}
+    }
+
