@@ -54,11 +54,11 @@ public class Cartones {
         int numeroCarta1;
         do {
             numeroCarta1 = baraja.obtenerCartaAleatoria().getNumero(); //Take a random card number of the Baraja
-        } while (baraja.buscarCartasNumeros(numeroCarta1).size() < 3);
+        } while (baraja.buscarCartasNumeros(numeroCarta1).size() < 3 || estaLaCarta(numeroCarta1,carton));
         int numeroCarta2;
         do {
             numeroCarta2 = barajaPareja.obtenerCartaAleatoria().getNumero();//Take a random card number of the Baraja
-        } while (numeroCarta1 == numeroCarta2);
+        } while (numeroCarta1 == numeroCarta2 || estaLaCarta(numeroCarta2,carton));
 
         for (int i = 0; i < carton[1].length; i++) {
             if (posicionDistintaPareja1 != i && posicionDistintaPareja2 != i) { //3 same cards
@@ -81,7 +81,7 @@ public class Cartones {
 
         boolean esIgual = false;
         do
-        {//Bucle to see if the card is in the other Carton, the bucle will repeat with the card will be in the other Carton
+        {//Bucle to see if the card is in the other Carton, the loop will repeat with the card will be in the other Carton
             esIgual = false;
             cartaSelect = baraja.obtenerCartaAleatoria().getNumero();
             for (int i = 0; i < 2; i++) {
@@ -137,6 +137,19 @@ public class Cartones {
                 }
             }
         }
+    }
+
+    private boolean estaLaCarta(int numCarta,Carta[][] carton){
+        for (int i = 0; i <carton.length ; i++) {
+            for (int j = 0; j <carton[i].length ; j++) {
+                if(carton[i][j]!=null){
+                    if(carton[i][j].getNumero()==numCarta){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public ArrayList<Carton> getCartones() {
