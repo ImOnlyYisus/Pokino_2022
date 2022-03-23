@@ -1,21 +1,19 @@
 package interfaz;
 
-
-import jdk.swing.interop.SwingInterOpUtils;
 import pokino.Carta;
 import pokino.Cartones;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageProducer;
-import java.net.URL;
 
 public class InterfazCliente extends JFrame {
     private Cartones cartones = new Cartones();
     private JPanel mainPanel = new JPanel();
+    private Dimension tamañoPantalla=Toolkit.getDefaultToolkit().getScreenSize();
 
     public InterfazCliente(String title){
         super(title);
+
         mainPanel.setLayout(new GridLayout(5,5,10,10));
 
         Carta[][] cartonEjemplo = cartones.getCartones().get(0).getCarton();
@@ -29,14 +27,16 @@ public class InterfazCliente extends JFrame {
 
                 JButton boton = new JButton(cardIcon);
                 boton.setPreferredSize(new Dimension(100, 150));
-//                boton.setIcon(cardIcon);
+
                 mainPanel.add(boton);
             }
         }
 
         this.add(mainPanel);
         this.pack();
+        this.setSize(tamañoPantalla.width/2,tamañoPantalla.height-200);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
