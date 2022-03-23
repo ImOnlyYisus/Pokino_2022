@@ -6,6 +6,7 @@ import java.util.Random;
 public class Cartones {
     private ArrayList<Carton> cartones = new ArrayList<>();
 
+
     public Cartones() {
         inicializarDoceCartones();
     }
@@ -155,7 +156,23 @@ public class Cartones {
     public ArrayList<Carton> getCartones() {
         return cartones;
     }
+
+   //method to return the carton choosen
+    public Carton cartonElegido(int numero){
+        return cartones.get(numero);
+    }
+
+    @Override
+    public String toString() {
+        return "Cartones{" +
+                "cartones=" + cartones +
+                '}';
+    }
+
+
 }
+
+
 
 
 
