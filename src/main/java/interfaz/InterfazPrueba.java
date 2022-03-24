@@ -2,6 +2,8 @@ package interfaz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static javax.swing.SwingConstants.EAST;
 import static javax.swing.SwingConstants.WEST;
@@ -24,41 +26,47 @@ public class InterfazPrueba extends JFrame {
         }
 
 //        this.add(mainPanel);
-        panelInfo.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        panelInfo.setLayout(null);
 
         JLabel textUltCard = new JLabel("ULTIMA CARTA");
-        c.fill = GridBagConstraints.PAGE_START;
-        c.gridy=0;
-        c.gridx=0;
-        panelInfo.add(textUltCard, c);
+        textUltCard.setSize(150,50);
+        textUltCard.setLocation(90,30);
+        textUltCard.setFont(new Font("Elephant",Font.BOLD,14));
+        panelInfo.add(textUltCard);
 
         JButton btn2= new JButton("ULTIMA CART");
         btn2.setPreferredSize(new Dimension(100,150));
-        c.fill = GridBagConstraints.PAGE_START;
-        c.gridy=1;
-        c.gridx=0;
-        c.insets = new Insets(10,0,10,5);
-        panelInfo.add(btn2, c);
+        btn2.setSize(100,150);
+        btn2.setLocation(92,75);
+
+        panelInfo.add(btn2);
 
         JLabel textUltCard2 = new JLabel("ANTERIOR CART");
-        c.fill = GridBagConstraints.PAGE_START;
-        c.gridy=0;
-        c.gridx=1;
-        panelInfo.add(textUltCard2, c);
+        textUltCard2.setSize(150,50);
+        textUltCard2.setLocation(275,30);
+        textUltCard2.setFont(new Font("Elephant",Font.BOLD,14));
+        panelInfo.add(textUltCard2);
 
         JButton btn3= new JButton("ANTERIOR CART");
         btn3.setPreferredSize(new Dimension(100,150));
-        c.fill = GridBagConstraints.PAGE_START;
-        c.gridy=1;
-        c.gridx=1;
-        panelInfo.add(btn3, c);
+        btn3.setSize(100,150);
+        btn3.setLocation(280,75);
+        panelInfo.add(btn3);
 
-        JButton btn5 = new JButton("5");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridy=4;
-        c.gridx=0;
-        panelInfo.add(btn5, c);
+        JLabel tiempo= new JLabel("Tiempo restante:");
+        tiempo.setSize(200,50);
+        tiempo.setLocation(50,tamañoPantalla.height-280);
+        tiempo.setFont(new Font("Elephant",Font.BOLD,20));
+        panelInfo.add(tiempo);
+
+        JLabel crono= new JLabel("00:00");
+        crono.setSize(150,50);
+        crono.setLocation(230,tamañoPantalla.height-280);
+        crono.setFont(new Font("Elephant",Font.BOLD,20));
+
+
+        panelInfo.add(crono);
+
 
         panelPrincipal.setLayout(new GridLayout(1,2));
 
@@ -72,9 +80,33 @@ public class InterfazPrueba extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        Thread hiloCrono = new Thread(new Cronotimer(crono));
+
+        if(!hiloCrono.isAlive()){
+            JFrame popUp = new JFrame();
+
+            JDialog jDialog = new JDialog(popUp);
+            jDialog.setTitle("Ronda finalizada");
+            jDialog.setLayout(new FlowLayout());
+            JButton jButton = new JButton("Siguiente ronda");
+            jButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jDialog.setVisible(false);
+                }
+            });
+
+            jDialog.add(new JLabel("Se ha terminado el tiempo"));
+            jDialog.add(jButton);
+            jDialog.setSize(200,100);
+            jDialog.setLocationRelativeTo(null);
+            jDialog.setResizable(false);
+            jDialog.setVisible(true);
+        }
+
     }
 
     public static void main(String[] args) {
-        InterfazPrueba a = new InterfazPrueba("Pene");
+        InterfazPrueba a = new InterfazPrueba("PRUEBA");
     }
 }
