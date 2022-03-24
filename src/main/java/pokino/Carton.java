@@ -54,29 +54,51 @@ public class Carton {
     //recorrer vertical carton and check if any columna have marked cards
     public boolean coincidenciaVertical() {
         Carta cartaRecojada;
-        boolean allSame = true;
+        boolean allSame = false; //true
 
-        for (int i = 0; i < carton.length; i++) {
+//        for (int i = 0; i < carton.length; i++) {
+//
+//            // First element of current row
+//            cartaRecojada = carton[i][0];
+//
+//            // Compare every element of the current row
+//            // with the first element of the row
+//            for (int j = i; j < carton[i].length; j++) {
+//
+//                // If any element is different
+//                if (!(carton[i][j].equals(cartaRecojada))) {
+//                    allSame = false;
+//                    break;
+//                }
+//            }
+//
+//        }
+//        // If all the elements of the
+//        // current row were same
+//        return allSame;
 
-            // First element of current row
-            cartaRecojada = carton[i][0];
+        //  {0, 1, 2, 3, 4 }
+//          {2, 1, 2, 3, 4 }
+//          {0, 1, 2, 3, 4 }
 
-            // Compare every element of the current row
-            // with the first element of the row
-            for (int j = 1; j < carton[i].length; j++) {
-
-                // If any element is different
-                if (!(carton[i][j].equals(cartaRecojada))) {
-                    allSame = false;
+        for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
+            for (int j = 0; j < carton.length; j++) { //recorrer columnas
+                for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
+                    if (!carton[i][j].equals(carton[i][k])) {
+                        allSame = false;
+                        break;
+                    } else {
+                        allSame = true;
+                        return allSame;
+                    }
+                }
+                if (!allSame) {
                     break;
                 }
             }
-
         }
-        // If all the elements of the
-        // current row were same
-        return allSame;
 
+        return allSame;
     }
 
 

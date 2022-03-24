@@ -41,6 +41,6 @@ public class Jugar {
         //}
         //cartones.cartonElegido(numeroCarton).imprimirCarton();
         System.out.println("all same "+carton.coincidenciaVertical());
-        System.out.println("all same "+carton.coincidenciaLinea());
+//        System.out.println("all same "+carton.coincidenciaLinea());
     }
 }
