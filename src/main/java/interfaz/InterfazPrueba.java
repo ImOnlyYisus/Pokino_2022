@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static javax.swing.SwingConstants.EAST;
-import static javax.swing.SwingConstants.WEST;
 
 public class InterfazPrueba extends JFrame {
     private JPanel panelPrincipal = new JPanel();
@@ -20,12 +18,15 @@ public class InterfazPrueba extends JFrame {
         panelBotones.setLayout(new GridLayout(5, 5, 10, 10));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                JButton boton = new JButton("Boton");
+                Icon cardIcon = new ImageIcon("src/main/java/interfaz/images/OROS_1.jpg");
+                Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(100, 170,  java.awt.Image.SCALE_SMOOTH);
+                cardIcon = new ImageIcon(scaledImg);
+                JButton boton = new JButton(cardIcon);
+                boton.setPreferredSize(new Dimension(100, 150));
                 panelBotones.add(boton);
             }
         }
 
-//        this.add(mainPanel);
         panelInfo.setLayout(null);
 
         JLabel textUltCard = new JLabel("ULTIMA CARTA");
@@ -38,6 +39,7 @@ public class InterfazPrueba extends JFrame {
         btn2.setPreferredSize(new Dimension(100,150));
         btn2.setSize(100,150);
         btn2.setLocation(92,75);
+
 
         panelInfo.add(btn2);
 
@@ -63,9 +65,13 @@ public class InterfazPrueba extends JFrame {
         crono.setSize(150,50);
         crono.setLocation(230,tamañoPantalla.height-280);
         crono.setFont(new Font("Elephant",Font.BOLD,20));
-
-
         panelInfo.add(crono);
+
+        JButton nextRound= new JButton("Siguiente Ronda");
+        nextRound.setSize(150,50);
+        nextRound.setLocation(150,tamañoPantalla.height-400);
+        nextRound.setFont(new Font("Elephant",Font.BOLD,14));
+        panelInfo.add(nextRound);
 
 
         panelPrincipal.setLayout(new GridLayout(1,2));
@@ -80,6 +86,7 @@ public class InterfazPrueba extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Timer
         Thread hiloCrono = new Thread(new Cronotimer(crono));
 
         if(!hiloCrono.isAlive()){

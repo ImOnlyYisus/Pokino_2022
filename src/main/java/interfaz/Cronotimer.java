@@ -35,9 +35,7 @@ public class Cronotimer implements Runnable {
             if(minutos>0){
                 segundos--;
             }
-            if(segundos>0){
-                segundos--;
-            }
+
             if(segundos==0){
                 if(minutos>0){
                     minutos--;
