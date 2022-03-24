@@ -10,7 +10,7 @@ public class Carton {
     public Carton() {
         //temporar
         carton= new Carta[][]{
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 1), new Carta(Simbolo.COPAS, 2), new Carta(Simbolo.SOTA, 1), new Carta(Simbolo.OROS, 1)},
+                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0)},
                 {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 2), new Carta(Simbolo.COPAS, 3), new Carta(Simbolo.SOTA, 2), new Carta(Simbolo.OROS, 2)},
                 {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 3), new Carta(Simbolo.COPAS, 1), new Carta(Simbolo.SOTA, 3), new Carta(Simbolo.OROS, 3)},
                 {new Carta(Simbolo.MARCADA,0),new Carta(Simbolo.SOTA,4),new Carta(Simbolo.COPAS,4),new Carta(Simbolo.SOTA,4),new Carta(Simbolo.OROS,4)},
@@ -54,19 +54,29 @@ public class Carton {
     //recorrer vertical carton and check if any columna have marked cards
    public boolean coincidenciaVertical() {
         Carta cartaRecojada;
-        boolean coincidencia=true;
+       boolean allSame=true;
 
-        for (int j = 0; j < carton.length; j++) {
-            //Cogemos la carta de la columna
-            cartaRecojada = carton[0][j];
-            for (int i = 1; i < carton[0].length; i++) {
-                //sino coincide ya no hay premio en esta columna
-                if (cartaRecojada != carton[i][j]) {
-                    coincidencia = false;
-                }
-            }
-        }
-        return coincidencia;
+       for (int i = 0; i < carton.length; i++) {
+
+           // First element of current row
+           cartaRecojada = carton[i][0];
+
+           // Compare every element of the current row
+           // with the first element of the row
+           for (int j = 1; j < carton[i].length; j++) {
+
+               // If any element is different
+               if (!(carton[i][j].equals(cartaRecojada))) {
+                   allSame = false;
+                   break;
+               }
+           }
+
+       }
+        // If all the elements of the
+       // current row were same
+       return allSame;
+
     }
 
 
@@ -119,13 +129,13 @@ public class Carton {
 
 
     //method check premio pokino
-    public String checkPremioPokino(){
+   /* public String checkPremioPokino(){
         String premio="pokino";
      if(coincidenciaVertical() || coincidenciaDiagonal() || coincidenciaDiagonalInversa() || coincidenciaLinea() ){
          return premio;
      }
      return "noHayPremio";
 
-    }
+    }*/
 
 }
