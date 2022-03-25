@@ -81,6 +81,7 @@ public class Carton {
 //          {2, 1, 2, 3, 4 }
 //          {0, 1, 2, 3, 4 }
 
+        //TODO revisar fuciona, lo unico que al igualar cartas algunas son distintas, deberiamos poner estados en cartas "estaMarcado=true or false"
         for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
             for (int j = 0; j < carton.length; j++) { //recorrer columnas
                 for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
