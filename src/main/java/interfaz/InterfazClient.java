@@ -24,7 +24,7 @@ public class InterfazClient extends JFrame {
 //        this.setSize(tamañoPantalla.width / 2, tamañoPantalla.height - 200);
         super("Pokino 2022 <<Jesus & Hind>>");
 
-        ImageIcon icon = new ImageIcon("src/main/java/interfaz/images/logo-xd.png");
+        ImageIcon icon = new ImageIcon("src/main/java/interfaz/images/logo.png");
         this.setIconImage(icon.getImage());
 
 
