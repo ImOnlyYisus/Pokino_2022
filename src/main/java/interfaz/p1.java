@@ -6,12 +6,12 @@ import pokino.Cartones;
 import javax.swing.*;
 import java.awt.*;
 
-public class InterfazCliente extends JFrame {
+public class p1 extends JFrame {
     private Cartones cartones = new Cartones();
     private JPanel mainPanel = new JPanel();
     private Dimension tamañoPantalla=Toolkit.getDefaultToolkit().getScreenSize();
 
-    public InterfazCliente(String title){
+    public p1(String title){
         super(title);
 
         mainPanel.setLayout(new GridLayout(5,5,10,10));
@@ -43,6 +43,6 @@ public class InterfazCliente extends JFrame {
     }
 
     public static void main(String[] args) {
-        InterfazCliente interfazCliente = new InterfazCliente("Ejemplo");
+        p1 p1 = new p1("Ejemplo");
     }
 }

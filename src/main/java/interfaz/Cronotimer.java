@@ -12,6 +12,7 @@ public class Cronotimer implements Runnable {
     private void actualizarTiempo(){
         String act = (minutos<=9?"0":"")+minutos+":"+(segundos<=9?"0":"")+segundos;
         tiempo.setText(act);
+
     }
 
     public Cronotimer(JLabel texto) {

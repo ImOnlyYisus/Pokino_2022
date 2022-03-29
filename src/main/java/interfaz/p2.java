@@ -6,13 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class InterfazPrueba extends JFrame {
+public class p2 extends JFrame {
     private JPanel panelPrincipal = new JPanel();
     private JPanel panelBotones = new JPanel();
     private JPanel panelInfo = new JPanel();
     private Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public InterfazPrueba(String title) {
+    public p2(String title) {
         super(title);
 
         panelBotones.setLayout(new GridLayout(5, 5, 10, 10));
@@ -114,6 +114,6 @@ public class InterfazPrueba extends JFrame {
     }
 
     public static void main(String[] args) {
-        InterfazPrueba a = new InterfazPrueba("PRUEBA");
+        p2 a = new p2("PRUEBA");
     }
 }
