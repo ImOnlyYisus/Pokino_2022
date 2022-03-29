@@ -1,7 +1,7 @@
 package pokino;
 
 public enum Simbolo {
-    SOTA, OROS, ESPADAS, COPAS,MARCADA;
+    SOTA, OROS, ESPADAS, COPAS;
 
     Simbolo() {
     }

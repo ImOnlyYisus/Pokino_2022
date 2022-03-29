@@ -10,11 +10,11 @@ public class Carton {
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.MARCADA, 0)},
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 2), new Carta(Simbolo.COPAS, 3), new Carta(Simbolo.SOTA, 2), new Carta(Simbolo.OROS, 2)},
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 3), new Carta(Simbolo.COPAS, 1), new Carta(Simbolo.SOTA, 3), new Carta(Simbolo.OROS, 3)},
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 4), new Carta(Simbolo.COPAS, 4), new Carta(Simbolo.SOTA, 4), new Carta(Simbolo.OROS, 4)},
-                {new Carta(Simbolo.MARCADA, 0), new Carta(Simbolo.SOTA, 5), new Carta(Simbolo.COPAS, 5), new Carta(Simbolo.SOTA, 5), new Carta(Simbolo.OROS, 5)}
+                {new Carta(Simbolo.COPAS, 1,true), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
+                {new Carta(Simbolo.SOTA, 1,true), new Carta(Simbolo.SOTA, 2,true), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
+                {new Carta(Simbolo.OROS, 1,true), new Carta(Simbolo.OROS, 3,true), new Carta(Simbolo.COPAS, 4,true), new Carta(Simbolo.SOTA, 5,true), new Carta(Simbolo.OROS, 3,true)},
+                {new Carta(Simbolo.COPAS, 2,true), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,true), new Carta(Simbolo.OROS, 4,false)},
+                {new Carta(Simbolo.ESPADAS, 1,true), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,true)}
         };
     }
 
@@ -32,8 +32,8 @@ public class Carton {
     }
 
     //metodo para marcar la carta
-    public Carta marcarCarta(int fila, int columna) {
-        return carton[fila][columna] = new Carta(Simbolo.MARCADA, 0);
+    public void marcarCarta(int fila, int columna) {
+        carton[fila][columna].setEstaMarcado(true);
     }
 
     //method looking if a cart exist in a carton or not
@@ -42,7 +42,7 @@ public class Carton {
         for (int i = 0; i < carton.length; i++) {
             for (int j = 0; j < carton[i].length; j++) {
                 if (carton[i][j].equals(carta)) {
-                    carton[i][j] = marcarCarta(i, j);
+                    marcarCarta(i,j);
                     return true;
                 }
             }
@@ -53,39 +53,12 @@ public class Carton {
 
     //recorrer vertical carton and check if any columna have marked cards
     public boolean coincidenciaVertical() {
-        Carta cartaRecojada;
         boolean allSame = false; //true
-
-//        for (int i = 0; i < carton.length; i++) {
-//
-//            // First element of current row
-//            cartaRecojada = carton[i][0];
-//
-//            // Compare every element of the current row
-//            // with the first element of the row
-//            for (int j = i; j < carton[i].length; j++) {
-//
-//                // If any element is different
-//                if (!(carton[i][j].equals(cartaRecojada))) {
-//                    allSame = false;
-//                    break;
-//                }
-//            }
-//
-//        }
-//        // If all the elements of the
-//        // current row were same
-//        return allSame;
-
-        //  {0, 1, 2, 3, 4 }
-//          {2, 1, 2, 3, 4 }
-//          {0, 1, 2, 3, 4 }
-
         //TODO revisar fuciona, lo unico que al igualar cartas algunas son distintas, deberiamos poner estados en cartas "estaMarcado=true or false"
         for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
             for (int j = 0; j < carton.length; j++) { //recorrer columnas
                 for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
-                    if (!carton[i][j].equals(carton[i][k])) {
+                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[i][k].isEstaMarcado()==true))) {
                         allSame = false;
                         break;
                     } else {
@@ -102,6 +75,27 @@ public class Carton {
         return allSame;
     }
 
+    //recorrer horizontal carton and check if any linea have marked cards
+    public boolean coincidenciaLinea() {
+        boolean allSame = false;
+        for (int i = 0; i < carton.length; i++) {
+            for (int j = 0; j < carton[i].length; j++) {
+                for (int k = i + 1; k < carton.length; k++) {
+                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[i][k].isEstaMarcado()==true))) {
+                        allSame = false;
+                        break;
+                    }else {
+                        allSame = true;
+                        return allSame;
+                    }
+                }
+                if (!allSame) {
+                    break;
+                }
+            }
+        }
+        return allSame;
+    }
 
     public boolean coincidenciaDiagonal() {
         Carta cartaRecojada;
@@ -129,25 +123,8 @@ public class Carton {
         return coincidencia;
     }
 
-    public boolean coincidenciaLinea() {
+    
 
-        Carta cartaRecojada;
-        boolean coincidencia;
-        //Reiniciamos la coincidencia
-        coincidencia = true;
-
-        for (int i = 0; i < carton.length; i++) {
-            //Cogemos la carta de la fila
-            cartaRecojada = carton[i][0];
-            for (int j = 1; j < carton[0].length; j++) {
-                //si no coincide no hay coimcidencia en este linea
-                if (cartaRecojada != carton[i][j]) {
-                    coincidencia = false;
-                }
-            }
-        }
-        return coincidencia;
-    }
 
 
     //method check premio pokino

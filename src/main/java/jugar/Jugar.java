@@ -23,11 +23,14 @@ public class Jugar {
         Baraja b=new Baraja();
         Carta cartaAleatoria=b.obtenerCartaAleatoria();
         System.out.println("carta aleatoria "+cartaAleatoria);//solo para provar
+
         //first check if the card exist in el carton or not
         System.out.println(cartones.cartonElegido(numeroCarton).isCartaExist(cartaAleatoria));
 
         //if the card exist in the carton we see the position where is it
+        Carton carton = new Carton();
         if(cartones.cartonElegido(numeroCarton).isCartaExist(cartaAleatoria)){
+            System.out.println(carton.coincidenciaVertical());
             /*here start the logic of the game*/
             //first make the methods of check esquina,estampa,poker,centro,full,pokino
             //the game shall stop when we find pokino
