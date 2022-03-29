@@ -6,7 +6,7 @@ import java.util.Timer;
 
 public class Cronotimer implements Runnable {
     private int minutos=2;
-    private int segundos=20;
+    private int segundos=10;
     JLabel tiempo;
 
     private void actualizarTiempo(){
@@ -34,7 +34,9 @@ public class Cronotimer implements Runnable {
     public void runTimer(){
         while (minutos>0 ||segundos>0){
             if(minutos>0){
-                segundos--;
+                if(segundos>0){
+                    segundos--;
+                }
             }
 
             if(segundos==0){
@@ -42,6 +44,9 @@ public class Cronotimer implements Runnable {
                     minutos--;
                     segundos=60;
                 }
+            }
+            if(segundos>0 && minutos==0){
+                segundos--;
             }
             actualizarTiempo();
             try {

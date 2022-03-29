@@ -5,10 +5,12 @@ import java.util.Objects;
 public class Carta {
     private Simbolo simbolo;
     private int numero;
+    private boolean estaMarcado;
 
-    public Carta(Simbolo simbolo, int numero) {
+    public Carta(Simbolo simbolo, int numero,boolean estaMarcado) {
         this.simbolo = simbolo;
         this.numero = numero;
+        this.estaMarcado=estaMarcado;
     }
 
     public Simbolo getSimbolo() {
@@ -17,6 +19,14 @@ public class Carta {
 
     public int getNumero() {
         return numero;
+    }
+
+    public boolean isEstaMarcado() {
+        return estaMarcado;
+    }
+
+    public void setEstaMarcado(boolean estaMarcado) {
+        this.estaMarcado = estaMarcado;
     }
 
     //Equals is when a card simbol and card number is the same than the other
@@ -35,6 +45,10 @@ public class Carta {
 
     @Override
     public String toString() {
-        return this.numero + "-"+this.simbolo;
+        return "Carta{" +
+                "simbolo=" + simbolo +
+                ", numero=" + numero +
+                ", estaMarcado=" + estaMarcado +
+                '}';
     }
 }

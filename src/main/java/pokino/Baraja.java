@@ -18,16 +18,16 @@ public class Baraja {
             for (int j = 0; j <12 ; j++) {
                 switch (i){
                     case 0://COPAS
-                        cartas.add(new Carta(Simbolo.COPAS,j+1));
+                        cartas.add(new Carta(Simbolo.COPAS,j+1,false));
                         break;
                     case 1://OROS
-                        cartas.add(new Carta(Simbolo.OROS,j+1));
+                        cartas.add(new Carta(Simbolo.OROS,j+1,false));
                         break;
                     case 2://ESPADAS
-                        cartas.add(new Carta(Simbolo.ESPADAS,j+1));
+                        cartas.add(new Carta(Simbolo.ESPADAS,j+1,false));
                         break;
                     case 3://SOTA
-                        cartas.add(new Carta(Simbolo.SOTA,j+1));
+                        cartas.add(new Carta(Simbolo.SOTA,j+1,false));
                         break;
                 }
             }
@@ -58,7 +58,7 @@ public class Baraja {
        Carta cartaBuscada=null;
        Comparator<Carta> criterioNumero = (c1,c2)-> Integer.compare(c1.getNumero(),c2.getNumero());
        Collections.sort(cartas,criterioNumero);
-       int index = Collections.binarySearch(cartas,new Carta(null,numero),criterioNumero);
+       int index = Collections.binarySearch(cartas,new Carta(null,numero,false),criterioNumero);
 
        if(index>-1){
            cartaBuscada=cartas.get(index);
