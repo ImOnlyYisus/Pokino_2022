@@ -10,11 +10,11 @@ public class Carton {
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1,false), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
-                {new Carta(Simbolo.SOTA, 1,false), new Carta(Simbolo.SOTA, 2,false), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
-                {new Carta(Simbolo.OROS, 1,false), new Carta(Simbolo.OROS, 3,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.SOTA, 5,false), new Carta(Simbolo.OROS, 3,false)},
-                {new Carta(Simbolo.COPAS, 2,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,false), new Carta(Simbolo.OROS, 4,false)},
-                {new Carta(Simbolo.ESPADAS, 1,false), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,false)}
+                {new Carta(Simbolo.COPAS, 1,true), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
+                {new Carta(Simbolo.SOTA, 1,false), new Carta(Simbolo.SOTA, 2,true), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
+                {new Carta(Simbolo.OROS, 1,false), new Carta(Simbolo.OROS, 3,false), new Carta(Simbolo.COPAS, 4,true), new Carta(Simbolo.SOTA, 5,false), new Carta(Simbolo.OROS, 3,false)},
+                {new Carta(Simbolo.COPAS, 2,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,true), new Carta(Simbolo.OROS, 4,false)},
+                {new Carta(Simbolo.ESPADAS, 1,false), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,true)}
         };
     }
 
@@ -58,7 +58,7 @@ public class Carton {
         for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
             for (int j = 0; j < carton.length; j++) { //recorrer columnas
                 for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
-                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[i][k].isEstaMarcado()==true))) {
+                    if (!((carton[i][j].isEstaMarcado())&&(carton[i][k].isEstaMarcado()))) {
                         allSame = false;
                         break;
                     } else {
@@ -81,7 +81,7 @@ public class Carton {
         for (int i = 0; i < carton.length; i++) {
             for (int j = 0; j < carton[i].length; j++) {
                 for (int k = i + 1; k < carton.length; k++) {
-                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[i][k].isEstaMarcado()==true))) {
+                    if (!((carton[i][j].isEstaMarcado())&&(carton[i][k].isEstaMarcado()))) {
                         allSame = false;
                         break;
                     }else {
@@ -101,7 +101,7 @@ public class Carton {
         boolean allSame = false;
         for (int i = 0; i < carton.length; i++) {
                 for (int k = i + 1; k < carton.length; k++) {
-                       if (!((carton[i][i].isEstaMarcado()==true)==(carton[k][k].isEstaMarcado()==true))) {
+                       if (!((carton[i][i].isEstaMarcado())&&(carton[k][k].isEstaMarcado()))) {
                            allSame = false;
                            break;
                        }else {
@@ -124,7 +124,7 @@ public class Carton {
         for (int i = carton.length-1; i >0; i--) {
             for (int j = 0; j < carton.length; j++) {
                 for (int k = i - 1; k >0; k--) {
-                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[k][j+1].isEstaMarcado()==true))) {
+                    if (!((carton[i][j].isEstaMarcado())&&(carton[k][j+1].isEstaMarcado()))) {
                         allSame = false;
                         break;
                     }else {
