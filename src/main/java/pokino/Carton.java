@@ -10,11 +10,11 @@ public class Carton {
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1,true), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
-                {new Carta(Simbolo.SOTA, 1,true), new Carta(Simbolo.SOTA, 2,true), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
-                {new Carta(Simbolo.OROS, 1,true), new Carta(Simbolo.OROS, 3,true), new Carta(Simbolo.COPAS, 4,true), new Carta(Simbolo.SOTA, 5,true), new Carta(Simbolo.OROS, 3,true)},
-                {new Carta(Simbolo.COPAS, 2,true), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,true), new Carta(Simbolo.OROS, 4,false)},
-                {new Carta(Simbolo.ESPADAS, 1,true), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,true)}
+                {new Carta(Simbolo.COPAS, 1,false), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
+                {new Carta(Simbolo.SOTA, 1,false), new Carta(Simbolo.SOTA, 2,false), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
+                {new Carta(Simbolo.OROS, 1,false), new Carta(Simbolo.OROS, 3,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.SOTA, 5,false), new Carta(Simbolo.OROS, 3,false)},
+                {new Carta(Simbolo.COPAS, 2,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,false), new Carta(Simbolo.OROS, 4,false)},
+                {new Carta(Simbolo.ESPADAS, 1,false), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,false)}
         };
     }
 
@@ -98,32 +98,50 @@ public class Carton {
     }
 
     public boolean coincidenciaDiagonal() {
-        Carta cartaRecojada;
-        boolean coincidencia = true;
+        boolean allSame = false;
+        for (int i = 0; i < carton.length; i++) {
+                for (int k = i + 1; k < carton.length; k++) {
+                       if (!((carton[i][i].isEstaMarcado()==true)==(carton[k][k].isEstaMarcado()==true))) {
+                           allSame = false;
+                           break;
+                       }else {
+                           allSame = true;
+                           return allSame;
+                       }
 
-        //Diagonal principal
-        cartaRecojada = carton[0][0];
-        for (int i = 1; i < carton.length; i++) {
-            if (cartaRecojada != carton[i][i]) {
-                coincidencia = false;
-            }
+                }
+                if (!allSame) {
+                    break;
+                }
+
         }
-        return coincidencia;
+        return allSame;
     }
 
     public boolean coincidenciaDiagonalInversa() {
         //Diagonal inversa
-        boolean coincidencia = true;
-        Carta cartaRecojada = carton[0][2];
-        for (int i = 1, j = 1; i < carton.length; i++, j--) {
-            if (cartaRecojada != carton[i][j]) {
-                coincidencia = false;
+        boolean allSame = false;
+        for (int i = carton.length-1; i >0; i--) {
+            for (int j = 0; j < carton.length; j++) {
+                for (int k = i - 1; k >0; k--) {
+                    if (!((carton[i][j].isEstaMarcado()==true)==(carton[k][j+1].isEstaMarcado()==true))) {
+                        allSame = false;
+                        break;
+                    }else {
+                        allSame = true;
+                        return allSame;
+                    }
+                }
+                if (!allSame) {
+                    break;
+                }
             }
+
         }
-        return coincidencia;
+        return allSame;
     }
 
-    
+
 
 
 
