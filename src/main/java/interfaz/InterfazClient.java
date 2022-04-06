@@ -9,9 +9,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 public class InterfazClient extends JFrame implements ActionListener {
     private Cartones cartones = new Cartones();
+    private Carta[][] cartonEjemplo =cartones.getCartones().get(0).getCarton();
     private Match partida = new Match();
     private Carta cartaRonda = partida.nextCarta();
 
@@ -28,10 +30,8 @@ public class InterfazClient extends JFrame implements ActionListener {
     private JButton anteriorCarta = new JButton();
     private JLabel anteriorCartaText = new JLabel("ANTER. CARTA");
 
-//    private Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 
     public InterfazClient() {
-//        this.setSize(tamañoPantalla.width / 2, tamañoPantalla.height - 200);
         super("Pokino 2022 <<Jesus & Hind>>");
 
         ImageIcon icon = new ImageIcon("src/main/java/interfaz/images/logo.png");
@@ -78,7 +78,7 @@ public class InterfazClient extends JFrame implements ActionListener {
         panelCartas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         panelCartas.setLayout(new java.awt.GridLayout(5, 5, 3, 3));
 
-        Carta[][] cartonEjemplo = cartones.getCartones().get(0).getCarton();
+
         for (int i = 0; i <cartonEjemplo.length ; i++) {
             for (int j = 0; j <cartonEjemplo[i].length ; j++) {
                 String route = "src/main/java/interfaz/images/"+cartonEjemplo[i][j].getSimbolo().toString().toUpperCase()+"_"+cartonEjemplo[i][j].getNumero()+".jpg";
@@ -99,6 +99,8 @@ public class InterfazClient extends JFrame implements ActionListener {
         Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
         cardIcon = new ImageIcon(scaledImg);
         ultimaCarta.setIcon(cardIcon);
+        ultimaCarta.addActionListener(this);
+
 
         Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/BACK.jpg");
         Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
@@ -245,6 +247,17 @@ public class InterfazClient extends JFrame implements ActionListener {
             Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
             cardIcon2 = new ImageIcon(scaledImg2);
             anteriorCarta.setIcon(cardIcon2);
+        }
+
+        if(e.getSource() == ultimaCarta){
+            for (int i = 0; i <cartonEjemplo.length ; i++) {
+                for (int j = 0; j <cartonEjemplo[i].length ; j++) {
+                    if(cartonEjemplo[i][j].equals(cartaRonda)){
+                        cartonEjemplo[i][j].setEstaMarcado(true);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
