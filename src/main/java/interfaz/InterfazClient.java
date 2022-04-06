@@ -1,10 +1,20 @@
 package interfaz;
 
+import jugar.Match;
+import pokino.Carta;
+import pokino.Cartones;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class InterfazClient extends JFrame {
+public class InterfazClient extends JFrame implements ActionListener {
+    private Cartones cartones = new Cartones();
+    private Match partida = new Match();
+    private Carta cartaRonda = partida.nextCarta();
+
     private JPanel panelPrincipal = new JPanel();
     private JLabel tiempoRestante = new JLabel("Tiempo restante:");
     private JLabel tiempo = new JLabel("00:00");
@@ -60,6 +70,7 @@ public class InterfazClient extends JFrame {
         playerText.setFont(new java.awt.Font("Segoe UI", 0, 14));
 
         nextRoundBtn.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        nextRoundBtn.addActionListener(this);
 
         namePlayer.setFont(new java.awt.Font("Segoe UI", 0, 14));
 
@@ -67,19 +78,32 @@ public class InterfazClient extends JFrame {
         panelCartas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         panelCartas.setLayout(new java.awt.GridLayout(5, 5, 3, 3));
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                JToggleButton boton = new JToggleButton("Carta");
-                boton.setPreferredSize(new Dimension(75, 22));
+        Carta[][] cartonEjemplo = cartones.getCartones().get(0).getCarton();
+        for (int i = 0; i <cartonEjemplo.length ; i++) {
+            for (int j = 0; j <cartonEjemplo[i].length ; j++) {
+                String route = "src/main/java/interfaz/images/"+cartonEjemplo[i][j].getSimbolo().toString().toUpperCase()+"_"+cartonEjemplo[i][j].getNumero()+".jpg";
+                Icon cardIcon = new ImageIcon(route);
+                Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+                cardIcon = new ImageIcon(scaledImg);
+                JToggleButton boton = new JToggleButton(cardIcon);
+                boton.setPreferredSize(new Dimension(80,115));
                 panelCartas.add(boton);
             }
         }
 
         panelInfo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
-        ultimaCarta.setText("jButton1");
 
-        anteriorCarta.setText("jButton1");
+        String route = "src/main/java/interfaz/images/"+ cartaRonda.getSimbolo()+"_"+ cartaRonda.getNumero()+".jpg";
+        Icon cardIcon = new ImageIcon(route);
+        Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+        cardIcon = new ImageIcon(scaledImg);
+        ultimaCarta.setIcon(cardIcon);
+
+        Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/BACK.jpg");
+        Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+        cardIcon2 = new ImageIcon(scaledImg2);
+        anteriorCarta.setIcon(cardIcon2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(jPanel3Layout);
@@ -163,6 +187,7 @@ public class InterfazClient extends JFrame {
                                 .addContainerGap())
         );
 
+
         pack();
     }
 
@@ -204,6 +229,24 @@ public class InterfazClient extends JFrame {
         });
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == nextRoundBtn){
+            Carta rondaAnterior = cartaRonda;
+            cartaRonda = partida.nextCarta();
+
+            String route = "src/main/java/interfaz/images/"+ cartaRonda.getSimbolo()+"_"+ cartaRonda.getNumero()+".jpg";
+            Icon cardIcon = new ImageIcon(route);
+            Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+            cardIcon = new ImageIcon(scaledImg);
+            ultimaCarta.setIcon(cardIcon);
+
+            Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/"+ rondaAnterior.getSimbolo()+"_"+ rondaAnterior.getNumero()+".jpg");
+            Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+            cardIcon2 = new ImageIcon(scaledImg2);
+            anteriorCarta.setIcon(cardIcon2);
+        }
+    }
 }
 
 
