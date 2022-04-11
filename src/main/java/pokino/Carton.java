@@ -1,11 +1,10 @@
 package pokino;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public class Carton {
     private Carta[][] carton = new Carta[5][5];
+    private Map<String,ArrayList<Casilla>> map=new HashMap<>();
 
     public Carton() {
         //temporar
@@ -54,7 +53,6 @@ public class Carton {
     //recorrer vertical carton and check if any columna have marked cards
     public boolean coincidenciaVertical() {
         boolean allSame = false; //true
-        //TODO revisar fuciona, lo unico que al igualar cartas algunas son distintas, deberiamos poner estados en cartas "estaMarcado=true or false"
         for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
             for (int j = 0; j < carton.length; j++) { //recorrer columnas
                 for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
@@ -142,17 +140,59 @@ public class Carton {
     }
 
 
-
-
-
     //method check premio pokino
-   /* public String checkPremioPokino(){
-        String premio="pokino";
+    public boolean checkPremioPokino(){
+        boolean premio=true;
      if(coincidenciaVertical() || coincidenciaDiagonal() || coincidenciaDiagonalInversa() || coincidenciaLinea() ){
          return premio;
      }
-     return "noHayPremio";
+     return false;
 
-    }*/
+    }
+
+    //rellenar el array de Casillas
+    public ArrayList<ArrayList<Casilla>> rellenarElArrayList(){
+        ArrayList<ArrayList<Casilla>> casillaList=new ArrayList<>();
+       for (int i=0;i<5;i++){
+           if(i==0){
+               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(2,2))));
+           }else if(i==1){
+               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(0,0),new Casilla(0,4),new Casilla(4,0),new Casilla(4,0),new Casilla(4,4))));
+           }else if(i==2){
+               casillaList.add(new ArrayList<>(Arrays.asList
+                              (new Casilla(0,0),new Casilla(0,1),new Casilla(0,3),new Casilla(0,4),new Casilla(1,0),
+                               new Casilla(1,1),new Casilla(1,3),new Casilla(1,4),new Casilla(3,0),new Casilla(3,1),
+                               new Casilla(3,3),new Casilla(3,4),new Casilla(4,0),new Casilla(4,1),new Casilla(4,3),new Casilla(4,4))));
+           }else if(i==3){
+
+           }else if(i==4){
+               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(1,0),new Casilla(1,1),new Casilla(1,2),new Casilla(1,3),new Casilla(1,4))));
+           }
+
+       }
+         //casillaList.forEach(System.out::println);
+        return casillaList;
+    }
+
+    //rellenar el Map
+    public Map<String, ArrayList<Casilla>> rellenarElMap(ArrayList<ArrayList<Casilla>> lista){
+        String text = null;
+        for (int i=0;i< map.size();i++){
+            if(i==0){
+                text="Centro";
+            }else if(i==1){
+                text="Esquina";
+            }else if(i==2){
+                text="Estampa";
+            }else if (i==3) {
+                text = "Poker";
+            } else if (i==4){
+                text="Full";
+            }
+            map.put(text,lista.get(i));
+        }
+       return map;
+    }
+
 
 }
