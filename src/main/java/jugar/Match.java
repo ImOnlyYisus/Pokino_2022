@@ -22,4 +22,6 @@ public class Match {
         barajaJuego.remove(cartaRonda);
         return cartaRonda;
     }
+
+
 }

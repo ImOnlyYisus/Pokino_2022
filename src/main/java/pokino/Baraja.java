@@ -93,4 +93,11 @@ public class Baraja {
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Baraja{" +
+                "cartas=" + cartas +
+                '}';
+    }
 }

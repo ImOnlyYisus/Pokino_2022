@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Carton {
     private Carta[][] carton = new Carta[5][5];
-    private Map<String,ArrayList<Casilla>> map=new HashMap<>();
+    private Map<String,ArrayList<ArrayList<Casilla>>> map=new HashMap<>();
 
     public Carton() {
         //temporar
@@ -15,6 +15,18 @@ public class Carton {
                 {new Carta(Simbolo.COPAS, 2,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,true), new Carta(Simbolo.OROS, 4,false)},
                 {new Carta(Simbolo.ESPADAS, 1,false), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,true)}
         };
+    }
+
+    public Map<String, ArrayList<ArrayList<Casilla>>> getMap() {
+        return map;
+    }
+
+    @Override
+    public String toString() {
+        return "Carton{" +
+                "carton=" + Arrays.toString(carton) +
+                ", map=" + map +
+                '}';
     }
 
     public void imprimirCarton() {
@@ -175,24 +187,28 @@ public class Carton {
     }
 
     //rellenar el Map
-    public Map<String, ArrayList<Casilla>> rellenarElMap(ArrayList<ArrayList<Casilla>> lista){
-        String text = null;
+    public Map<String, ArrayList<ArrayList<Casilla>>> rellenarElMap(ArrayList<ArrayList<Casilla>> lista){
         for (int i=0;i< map.size();i++){
             if(i==0){
-                text="Centro";
+                map.put("Centro",lista);
             }else if(i==1){
-                text="Esquina";
+                map.put("Esquina",lista);
             }else if(i==2){
-                text="Estampa";
+                map.put("Estampa",lista);
             }else if (i==3) {
-                text = "Poker";
+                map.put("Poker",lista);
             } else if (i==4){
-                text="Full";
+                map.put("Full",lista);
             }
-            map.put(text,lista.get(i));
         }
        return map;
     }
 
+    //mostrar el Map
+    public void mostrar(){
+        for (String key : map.keySet()) {
+            System.out.printf("Clave: %s -- Objeto: %s %n", key, map.get(key));
+        }
+    }
 
 }
