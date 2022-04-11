@@ -1,10 +1,11 @@
 package pokino;
 
+import java.io.PrintStream;
 import java.util.*;
 
 public class Carton {
     private Carta[][] carton = new Carta[5][5];
-    private Map<String,ArrayList<ArrayList<Casilla>>> map=new HashMap<>();
+    private Map<String,ArrayList<Casilla>> map=new HashMap<>();
 
     public Carton() {
         //temporar
@@ -17,7 +18,7 @@ public class Carton {
         };
     }
 
-    public Map<String, ArrayList<ArrayList<Casilla>>> getMap() {
+    public Map<String, ArrayList<Casilla>> getMap() {
         return map;
     }
 
@@ -162,43 +163,35 @@ public class Carton {
 
     }
 
-    //rellenar el array de Casillas
-    public ArrayList<ArrayList<Casilla>> rellenarElArrayList(){
-        ArrayList<ArrayList<Casilla>> casillaList=new ArrayList<>();
-       for (int i=0;i<5;i++){
-           if(i==0){
-               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(2,2))));
-           }else if(i==1){
-               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(0,0),new Casilla(0,4),new Casilla(4,0),new Casilla(4,0),new Casilla(4,4))));
-           }else if(i==2){
-               casillaList.add(new ArrayList<>(Arrays.asList
-                              (new Casilla(0,0),new Casilla(0,1),new Casilla(0,3),new Casilla(0,4),new Casilla(1,0),
-                               new Casilla(1,1),new Casilla(1,3),new Casilla(1,4),new Casilla(3,0),new Casilla(3,1),
-                               new Casilla(3,3),new Casilla(3,4),new Casilla(4,0),new Casilla(4,1),new Casilla(4,3),new Casilla(4,4))));
-           }else if(i==3){
-
-           }else if(i==4){
-               casillaList.add(new ArrayList<>(Arrays.asList(new Casilla(1,0),new Casilla(1,1),new Casilla(1,2),new Casilla(1,3),new Casilla(1,4))));
-           }
-
-       }
-         //casillaList.forEach(System.out::println);
-        return casillaList;
-    }
-
     //rellenar el Map
-    public Map<String, ArrayList<ArrayList<Casilla>>> rellenarElMap(ArrayList<ArrayList<Casilla>> lista){
+    public Map<String, ArrayList<Casilla>> rellenarElMap(){
         for (int i=0;i< map.size();i++){
-            if(i==0){
-                map.put("Centro",lista);
-            }else if(i==1){
-                map.put("Esquina",lista);
-            }else if(i==2){
-                map.put("Estampa",lista);
-            }else if (i==3) {
-                map.put("Poker",lista);
-            } else if (i==4){
-                map.put("Full",lista);
+            switch (i) {
+                case 0:
+                    ArrayList<Casilla> centro=new ArrayList<>();
+                    centro.add(new Casilla(2,2));
+                    map.put("Centro",centro);
+                    break;
+                case 1:
+                    ArrayList<Casilla> esquina=new ArrayList<>(Arrays.asList(new Casilla(0,0), new Casilla(0,4), new Casilla(4,0), new Casilla(4,0), new Casilla(4,4)));
+                    map.put("Esquina",esquina);
+                    break;
+                case 2:
+                    ArrayList<Casilla> estampa=new ArrayList<>(Arrays.asList(new Casilla(0,0),new Casilla(0,1),new Casilla(0,3),new Casilla(0,4),new Casilla(1,0),
+                            new Casilla(1,1),new Casilla(1,3),new Casilla(1,4),new Casilla(3,0),new Casilla(3,1),
+                            new Casilla(3,3),new Casilla(3,4),new Casilla(4,0),new Casilla(4,1),new Casilla(4,3),new Casilla(4,4)));
+                    map.put("Estampa",estampa);
+                    break;
+                case 3:
+                    ArrayList<Casilla> poker=new ArrayList<>();
+                    map.put("Poker",poker);
+                    break;
+                case 4:
+                    ArrayList<Casilla> full=new ArrayList<>(Arrays.asList(new Casilla(1,0),new Casilla(1,1),new Casilla(1,2),new Casilla(1,3),new Casilla(1,4)));
+                    map.put("Full",full);
+                    break;
+                default:
+                    break;
             }
         }
        return map;
@@ -206,8 +199,14 @@ public class Carton {
 
     //mostrar el Map
     public void mostrar(){
-        for (String key : map.keySet()) {
-            System.out.printf("Clave: %s -- Objeto: %s %n", key, map.get(key));
+        int i=0;
+        // iterating over a map
+        for(Map.Entry<String, ArrayList<Casilla>> listEntry : map.entrySet()){
+            System.out.println("Iterating list number - " +i);
+            // iterating over a list
+            for(Casilla obj : listEntry.getValue()){
+                System.out.println("PosicionCasillas - " + obj);
+            }
         }
     }
 
