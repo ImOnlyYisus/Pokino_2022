@@ -16,8 +16,8 @@ public class Prueba {
         System.out.println(carton.coincidenciaDiagonal());
         System.out.println(carton.coincidenciaDiagonalInversa());
         System.out.println(carton.checkPremioPokino());
-        System.out.println(carton.rellenarElMap());
         carton.mostrar();
+        carton.recorrerMap();
 
     }
 }

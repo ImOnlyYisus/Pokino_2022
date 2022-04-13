@@ -1,21 +1,21 @@
 package pokino;
 
-import java.io.PrintStream;
 import java.util.*;
 
 public class Carton {
     private Carta[][] carton = new Carta[5][5];
-    private Map<String,ArrayList<Casilla>> map=new HashMap<>();
+    private Map<String, ArrayList<Casilla>> map = new HashMap<>();
 
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1,true), new Carta(Simbolo.COPAS, 0,false), new Carta(Simbolo.SOTA, 0,false), new Carta(Simbolo.SOTA, 9,false), new Carta(Simbolo.OROS, 0,false)},
-                {new Carta(Simbolo.SOTA, 1,false), new Carta(Simbolo.SOTA, 2,true), new Carta(Simbolo.COPAS, 3,false), new Carta(Simbolo.SOTA, 3,false), new Carta(Simbolo.OROS, 9,false)},
-                {new Carta(Simbolo.OROS, 1,false), new Carta(Simbolo.OROS, 3,false), new Carta(Simbolo.COPAS, 4,true), new Carta(Simbolo.SOTA, 5,false), new Carta(Simbolo.OROS, 3,false)},
-                {new Carta(Simbolo.COPAS, 2,false), new Carta(Simbolo.COPAS, 4,false), new Carta(Simbolo.COPAS, 6,false), new Carta(Simbolo.SOTA, 8,true), new Carta(Simbolo.OROS, 4,false)},
-                {new Carta(Simbolo.ESPADAS, 1,false), new Carta(Simbolo.ESPADAS, 5,false), new Carta(Simbolo.COPAS, 8,false), new Carta(Simbolo.SOTA, 6,false), new Carta(Simbolo.OROS, 5,true)}
+                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, false), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, false), new Carta(Simbolo.OROS, 0, false)},
+                {new Carta(Simbolo.SOTA, 1, false), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, false), new Carta(Simbolo.OROS, 9, false)},
+                {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
+                {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, true), new Carta(Simbolo.OROS, 4, false)},
+                {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, false), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, true)}
         };
+        this.map = rellenarElMap();
     }
 
     public Map<String, ArrayList<Casilla>> getMap() {
@@ -54,7 +54,7 @@ public class Carton {
         for (int i = 0; i < carton.length; i++) {
             for (int j = 0; j < carton[i].length; j++) {
                 if (carton[i][j].equals(carta)) {
-                    marcarCarta(i,j);
+                    marcarCarta(i, j);
                     return true;
                 }
             }
@@ -69,7 +69,7 @@ public class Carton {
         for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
             for (int j = 0; j < carton.length; j++) { //recorrer columnas
                 for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
-                    if (!((carton[i][j].isEstaMarcado())&&(carton[i][k].isEstaMarcado()))) {
+                    if (!((carton[i][j].isEstaMarcado()) && (carton[i][k].isEstaMarcado()))) {
                         allSame = false;
                         break;
                     } else {
@@ -92,10 +92,10 @@ public class Carton {
         for (int i = 0; i < carton.length; i++) {
             for (int j = 0; j < carton[i].length; j++) {
                 for (int k = i + 1; k < carton.length; k++) {
-                    if (!((carton[i][j].isEstaMarcado())&&(carton[i][k].isEstaMarcado()))) {
+                    if (!((carton[i][j].isEstaMarcado()) && (carton[i][k].isEstaMarcado()))) {
                         allSame = false;
                         break;
-                    }else {
+                    } else {
                         allSame = true;
                         return allSame;
                     }
@@ -111,19 +111,19 @@ public class Carton {
     public boolean coincidenciaDiagonal() {
         boolean allSame = false;
         for (int i = 0; i < carton.length; i++) {
-                for (int k = i + 1; k < carton.length; k++) {
-                       if (!((carton[i][i].isEstaMarcado())&&(carton[k][k].isEstaMarcado()))) {
-                           allSame = false;
-                           break;
-                       }else {
-                           allSame = true;
-                           return allSame;
-                       }
-
-                }
-                if (!allSame) {
+            for (int k = i + 1; k < carton.length; k++) {
+                if (!((carton[i][i].isEstaMarcado()) && (carton[k][k].isEstaMarcado()))) {
+                    allSame = false;
                     break;
+                } else {
+                    allSame = true;
+                    return allSame;
                 }
+
+            }
+            if (!allSame) {
+                break;
+            }
 
         }
         return allSame;
@@ -132,13 +132,13 @@ public class Carton {
     public boolean coincidenciaDiagonalInversa() {
         //Diagonal inversa
         boolean allSame = false;
-        for (int i = carton.length-1; i >0; i--) {
+        for (int i = carton.length - 1; i > 0; i--) {
             for (int j = 0; j < carton.length; j++) {
-                for (int k = i - 1; k >0; k--) {
-                    if (!((carton[i][j].isEstaMarcado())&&(carton[k][j+1].isEstaMarcado()))) {
+                for (int k = i - 1; k > 0; k--) {
+                    if (!((carton[i][j].isEstaMarcado()) && (carton[k][j + 1].isEstaMarcado()))) {
                         allSame = false;
                         break;
-                    }else {
+                    } else {
                         allSame = true;
                         return allSame;
                     }
@@ -154,60 +154,71 @@ public class Carton {
 
 
     //method check premio pokino
-    public boolean checkPremioPokino(){
-        boolean premio=true;
-     if(coincidenciaVertical() || coincidenciaDiagonal() || coincidenciaDiagonalInversa() || coincidenciaLinea() ){
-         return premio;
-     }
-     return false;
+    public boolean checkPremioPokino() {
+        boolean premio = true;
+        if (coincidenciaVertical() || coincidenciaDiagonal() || coincidenciaDiagonalInversa() || coincidenciaLinea()) {
+            return premio;
+        }
+        return false;
 
     }
 
     //rellenar el Map
-    public Map<String, ArrayList<Casilla>> rellenarElMap(){
-        for (int i=0;i< map.size();i++){
+    public Map<String, ArrayList<Casilla>> rellenarElMap() {
+        for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    ArrayList<Casilla> centro=new ArrayList<>();
-                    centro.add(new Casilla(2,2));
-                    map.put("Centro",centro);
+                    ArrayList<Casilla> centro = new ArrayList<>();
+                    centro.add(new Casilla(2, 2));
+                    map.put("Centro", centro);
                     break;
                 case 1:
-                    ArrayList<Casilla> esquina=new ArrayList<>(Arrays.asList(new Casilla(0,0), new Casilla(0,4), new Casilla(4,0), new Casilla(4,0), new Casilla(4,4)));
-                    map.put("Esquina",esquina);
+                    ArrayList<Casilla> esquina = new ArrayList<>(Arrays.asList(new Casilla(0, 0), new Casilla(0, 4), new Casilla(4, 0), new Casilla(4, 0), new Casilla(4, 4)));
+                    map.put("Esquina", esquina);
                     break;
                 case 2:
-                    ArrayList<Casilla> estampa=new ArrayList<>(Arrays.asList(new Casilla(0,0),new Casilla(0,1),new Casilla(0,3),new Casilla(0,4),new Casilla(1,0),
-                            new Casilla(1,1),new Casilla(1,3),new Casilla(1,4),new Casilla(3,0),new Casilla(3,1),
-                            new Casilla(3,3),new Casilla(3,4),new Casilla(4,0),new Casilla(4,1),new Casilla(4,3),new Casilla(4,4)));
-                    map.put("Estampa",estampa);
+                    ArrayList<Casilla> estampa = new ArrayList<>(Arrays.asList(new Casilla(0, 0), new Casilla(0, 1), new Casilla(0, 3), new Casilla(0, 4), new Casilla(1, 0),
+                            new Casilla(1, 1), new Casilla(1, 3), new Casilla(1, 4), new Casilla(3, 0), new Casilla(3, 1),
+                            new Casilla(3, 3), new Casilla(3, 4), new Casilla(4, 0), new Casilla(4, 1), new Casilla(4, 3), new Casilla(4, 4)));
+                    map.put("Estampa", estampa);
                     break;
                 case 3:
-                    ArrayList<Casilla> poker=new ArrayList<>();
-                    map.put("Poker",poker);
+                    ArrayList<Casilla> poker = new ArrayList<>();
+                    map.put("Poker", poker);
                     break;
                 case 4:
-                    ArrayList<Casilla> full=new ArrayList<>(Arrays.asList(new Casilla(1,0),new Casilla(1,1),new Casilla(1,2),new Casilla(1,3),new Casilla(1,4)));
-                    map.put("Full",full);
+                    ArrayList<Casilla> full = new ArrayList<>(Arrays.asList(new Casilla(1, 0), new Casilla(1, 1), new Casilla(1, 2), new Casilla(1, 3), new Casilla(1, 4)));
+                    map.put("Full", full);
                     break;
                 default:
                     break;
             }
         }
-       return map;
+        return map;
     }
 
     //mostrar el Map
-    public void mostrar(){
-        int i=0;
-        // iterating over a map
-        for(Map.Entry<String, ArrayList<Casilla>> listEntry : map.entrySet()){
-            System.out.println("Iterating list number - " +i);
-            // iterating over a list
-            for(Casilla obj : listEntry.getValue()){
-                System.out.println("PosicionCasillas - " + obj);
-            }
-        }
+    public void mostrar() {
+        map.forEach((premio, casilla) -> {
+            System.out.println("Iterating list number - " + premio);
+            System.out.println("PosicionCasillas - " + casilla.toString());
+        });
     }
 
+    //recorrer el map y ver si hay pokino
+    public Casilla recorrerMap() {
+        for(ArrayList<Casilla> obj: map.values()){
+            for (int i=0; i< map.size();i++){
+                for(int j=0;j<carton.length;j++){
+                    for(int k=0;k<carton[j].length;k++){
+                        if(obj.get(i).equals(carton[j][k].isEstaMarcado()==true)){
+                          return obj.get(i);
+                        }
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
 }
