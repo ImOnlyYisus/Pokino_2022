@@ -10,11 +10,12 @@ public class Match {
     public Match() {
     }
 
-    public boolean comprobarPremios(Carton carton){
-        if(carton.coincidenciaVertical() || carton.coincidenciaLinea() || carton.coincidenciaDiagonal() || carton.coincidenciaDiagonalInversa()){
-            return true;
-        }
-        return false;
+    public boolean comprobarPokino(Carton carton){
+        return carton.checkPremioPokino();
+    }
+
+    public String premio(Carton carton){
+        return carton.recorrerMap();
     }
 
     public Carta nextCarta(){
