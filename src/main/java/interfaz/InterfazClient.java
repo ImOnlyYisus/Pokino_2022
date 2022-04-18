@@ -10,7 +10,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 
 public class InterfazClient extends JFrame implements ActionListener {
     private Cartones cartones = new Cartones();
@@ -236,20 +235,21 @@ public class InterfazClient extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == nextRoundBtn){
-            if(partida.comprobarPremios(cartonEjemplo)){
-                JOptionPane.showMessageDialog(this, "Has ganado un premio");
-            }else{
+            if(partida.comprobarPokino(cartonEjemplo)){
+                JOptionPane.showMessageDialog(this, "Has ganado el premio de pokino +\nSE HA ACABADO LA PARTIDA");
+
+            } else {
                 Carta rondaAnterior = cartaRonda;
                 cartaRonda = partida.nextCarta();
 
-                String route = "src/main/java/interfaz/images/"+ cartaRonda.getSimbolo()+"_"+ cartaRonda.getNumero()+".jpg";
+                String route = "src/main/java/interfaz/images/" + cartaRonda.getSimbolo() + "_" + cartaRonda.getNumero() + ".jpg";
                 Icon cardIcon = new ImageIcon(route);
-                Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+                Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
                 cardIcon = new ImageIcon(scaledImg);
                 ultimaCarta.setIcon(cardIcon);
 
-                Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/"+ rondaAnterior.getSimbolo()+"_"+ rondaAnterior.getNumero()+".jpg");
-                Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+                Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/" + rondaAnterior.getSimbolo() + "_" + rondaAnterior.getNumero() + ".jpg");
+                Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
                 cardIcon2 = new ImageIcon(scaledImg2);
                 anteriorCarta.setIcon(cardIcon2);
             }
