@@ -2,6 +2,7 @@ package interfaz;
 
 import jugar.Match;
 import pokino.Carta;
+import pokino.Carton;
 import pokino.Cartones;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.util.Collections;
 
 public class InterfazClient extends JFrame implements ActionListener {
     private Cartones cartones = new Cartones();
-    private Carta[][] cartonEjemplo =cartones.getCartones().get(0).getCarton();
+    private Carton cartonEjemplo =cartones.getCartones().get(0);
     private Match partida = new Match();
     private Carta cartaRonda = partida.nextCarta();
 
@@ -79,14 +80,15 @@ public class InterfazClient extends JFrame implements ActionListener {
         panelCartas.setLayout(new java.awt.GridLayout(5, 5, 3, 3));
 
 
-        for (int i = 0; i <cartonEjemplo.length ; i++) {
-            for (int j = 0; j <cartonEjemplo[i].length ; j++) {
-                String route = "src/main/java/interfaz/images/"+cartonEjemplo[i][j].getSimbolo().toString().toUpperCase()+"_"+cartonEjemplo[i][j].getNumero()+".jpg";
+        for (int i = 0; i <cartonEjemplo.getCarton().length ; i++) {
+            for (int j = 0; j <cartonEjemplo.getCarton()[i].length ; j++) {
+                String route = "src/main/java/interfaz/images/"+cartonEjemplo.getCarton()[i][j].getSimbolo().toString().toUpperCase()+"_"+cartonEjemplo.getCarton()[i][j].getNumero()+".jpg";
                 Icon cardIcon = new ImageIcon(route);
                 Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
                 cardIcon = new ImageIcon(scaledImg);
                 JToggleButton boton = new JToggleButton(cardIcon);
                 boton.setPreferredSize(new Dimension(80,115));
+                boton.addActionListener(this);
                 panelCartas.add(boton);
             }
         }
@@ -234,31 +236,54 @@ public class InterfazClient extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == nextRoundBtn){
-            Carta rondaAnterior = cartaRonda;
-            cartaRonda = partida.nextCarta();
+            if(partida.comprobarPremios(cartonEjemplo)){
+                JOptionPane.showMessageDialog(this, "Has ganado un premio");
+            }else{
+                Carta rondaAnterior = cartaRonda;
+                cartaRonda = partida.nextCarta();
 
-            String route = "src/main/java/interfaz/images/"+ cartaRonda.getSimbolo()+"_"+ cartaRonda.getNumero()+".jpg";
-            Icon cardIcon = new ImageIcon(route);
-            Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
-            cardIcon = new ImageIcon(scaledImg);
-            ultimaCarta.setIcon(cardIcon);
+                String route = "src/main/java/interfaz/images/"+ cartaRonda.getSimbolo()+"_"+ cartaRonda.getNumero()+".jpg";
+                Icon cardIcon = new ImageIcon(route);
+                Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+                cardIcon = new ImageIcon(scaledImg);
+                ultimaCarta.setIcon(cardIcon);
 
-            Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/"+ rondaAnterior.getSimbolo()+"_"+ rondaAnterior.getNumero()+".jpg");
-            Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
-            cardIcon2 = new ImageIcon(scaledImg2);
-            anteriorCarta.setIcon(cardIcon2);
+                Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/"+ rondaAnterior.getSimbolo()+"_"+ rondaAnterior.getNumero()+".jpg");
+                Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65,105,  java.awt.Image.SCALE_SMOOTH);
+                cardIcon2 = new ImageIcon(scaledImg2);
+                anteriorCarta.setIcon(cardIcon2);
+            }
+
         }
 
+
+
         if(e.getSource() == ultimaCarta){
-            for (int i = 0; i <cartonEjemplo.length ; i++) {
-                for (int j = 0; j <cartonEjemplo[i].length ; j++) {
-                    if(cartonEjemplo[i][j].equals(cartaRonda)){
-                        cartonEjemplo[i][j].setEstaMarcado(true);
+            //Botones de las cartas
+            Component[] botones = panelCartas.getComponents();
+
+            for (int i = 0; i <cartonEjemplo.getCarton().length ; i++) {
+                for (int j = 0; j <cartonEjemplo.getCarton()[i].length ; j++) {
+                    if(cartonEjemplo.getCarton()[i][j].equals(cartaRonda)){
+                        cartonEjemplo.getCarton()[i][j].setEstaMarcado(true);
+                        if(i==0){
+                            botones[j].setBackground(Color.GREEN);
+                        }else if(i==1){
+                            botones[j+5].setBackground(Color.GREEN);
+                        } else if(i==2){
+                            botones[j+10].setBackground(Color.GREEN);
+                        } else if(i==3){
+                            botones[j+15].setBackground(Color.GREEN);
+                        }else if(i==4){
+                            botones[j+20].setBackground(Color.GREEN);
+                        }
+
                         break;
                     }
                 }
             }
         }
+
     }
 }
 
