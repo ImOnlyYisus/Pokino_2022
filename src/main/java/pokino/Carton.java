@@ -9,11 +9,11 @@ public class Carton {
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, false), new Carta(Simbolo.OROS, 0, true)},
-                {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, true), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
-                {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
-                {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, true), new Carta(Simbolo.OROS, 4, false)},
-                {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, true)}
+                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, false), new Carta(Simbolo.OROS, 0, false)},
+                {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, false), new Carta(Simbolo.OROS, 9, false)},
+                {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, true), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
+                {new Carta(Simbolo.COPAS, 2, true), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
+                {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, false)}
         };
         this.map = rellenarElMap();
     }
@@ -65,24 +65,24 @@ public class Carton {
 
     //recorrer vertical carton and check if any columna have marked cards
     public boolean coincidenciaVertical() {
-        boolean allSame = false; //true
-        for (int i = 0; i < carton[0].length; i++) { //recorre columnas fila 1
-            for (int j = 0; j < carton.length; j++) { //recorrer columnas
-                for (int k = j + 1; k < carton.length; k++) { //recorrer columnas + 1
-                    if (!((carton[i][j].isEstaMarcado()) && (carton[i][k].isEstaMarcado()))) {
+        boolean allSame = true;
+        for (int i = 0; i < carton[0].length; i++) {
+            for (int j = 0; j < carton.length ; j++) {
+                for (int k = j+1; k < carton.length ; k++) {
+                    if(!(carton[j][i].isEstaMarcado() && carton[k][i].isEstaMarcado())){
                         allSame = false;
                         break;
-                    } else {
+                    }else{
                         allSame = true;
-                        return allSame;
                     }
                 }
-                if (!allSame) {
+                if(!allSame){
                     break;
+                }else{
+                    return allSame;
                 }
             }
         }
-
         return allSame;
     }
 
@@ -220,9 +220,11 @@ public class Carton {
 
         });
 
-        comprobacion.forEach((premio, isPremio) -> {
-            System.out.println(premio + " ->" + isPremio);
-        });
+        for(Map.Entry<String, Boolean> entry : comprobacion.entrySet()) {
+            if(entry.getValue()) {
+                return entry.getKey();
+            }
+        }
         return null;
     }
 }
