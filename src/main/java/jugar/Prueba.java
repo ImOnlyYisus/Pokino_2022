@@ -11,13 +11,10 @@ public class Prueba {
         carton.imprimirCarton();
 
 
-        System.out.println(carton.coincidenciaVertical());
-        System.out.println(carton.coincidenciaLinea());
-        System.out.println(carton.coincidenciaDiagonal());
-        System.out.println(carton.coincidenciaDiagonalInversa());
+
         System.out.println(carton.checkPremioPokino());
-        carton.mostrar();
-        carton.recorrerMap();
+//        carton.mostrar();
+//        carton.recorrerMap();
 
     }
 }
