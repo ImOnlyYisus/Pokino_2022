@@ -9,11 +9,11 @@ public class Carton {
     public Carton() {
         //temporar
         carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, false), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, false), new Carta(Simbolo.OROS, 0, false)},
-                {new Carta(Simbolo.SOTA, 1, false), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, false), new Carta(Simbolo.OROS, 9, false)},
+                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, false), new Carta(Simbolo.OROS, 0, true)},
+                {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, true), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
                 {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
-                {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, true), new Carta(Simbolo.OROS, 4, false)},
-                {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, false), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, true)}
+                {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, true), new Carta(Simbolo.OROS, 4, false)},
+                {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, true)}
         };
         this.map = rellenarElMap();
     }
@@ -155,9 +155,8 @@ public class Carton {
 
     //method check premio pokino
     public boolean checkPremioPokino() {
-        boolean premio = true;
         if (coincidenciaVertical() || coincidenciaDiagonal() || coincidenciaDiagonalInversa() || coincidenciaLinea()) {
-            return premio;
+            return true;
         }
         return false;
 
@@ -205,20 +204,25 @@ public class Carton {
         });
     }
 
-    //recorrer el map y ver si hay pokino
-    public Casilla recorrerMap() {
-        for(ArrayList<Casilla> obj: map.values()){
-            for (int i=0; i< map.size();i++){
-                for(int j=0;j<carton.length;j++){
-                    for(int k=0;k<carton[j].length;k++){
-                        if(obj.get(i).equals(carton[j][k].isEstaMarcado()==true)){
-                          return obj.get(i);
-                        }
-                    }
+    //recorrer el map y ver si hay algun premio (centro, esquina, estampa, poker, full)
+    public String recorrerMap() {
+        Map<String, Boolean> comprobacion = new HashMap<>();
+        map.forEach((premio, casilla) -> {
+            for (int i = 0; i < casilla.size(); i++) {
+                if (!carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado()) {
+                    comprobacion.put(premio, false);
+                    break;
+                } else {
+                    comprobacion.put(premio, carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado());
                 }
             }
 
-        }
+
+        });
+
+        comprobacion.forEach((premio, isPremio) -> {
+            System.out.println(premio + " ->" + isPremio);
+        });
         return null;
     }
 }
