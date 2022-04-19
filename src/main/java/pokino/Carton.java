@@ -200,16 +200,21 @@ public class Carton {
     public String recorrerMap() {
         Map<String, Boolean> comprobacion = new HashMap<>();
         map.forEach((premio, casilla) -> {
-            for (int i = 0; i < casilla.size(); i++) {
-                if (!carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado()) {
-                    comprobacion.put(premio, false);
-                    break;
-                } else {
-                    comprobacion.put(premio, carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado());
+            if(premio.equals("Estampa")){
+
+            }else if(premio.equals("Poker")){
+
+            }
+            else{
+                for (int i = 0; i < casilla.size(); i++) {
+                    if (!carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado()) {
+                        comprobacion.put(premio, false);
+                        break;
+                    } else {
+                        comprobacion.put(premio, carton[casilla.get(i).getI()][casilla.get(i).getJ()].isEstaMarcado());
+                    }
                 }
             }
-
-
         });
 
         for(Map.Entry<String, Boolean> entry : comprobacion.entrySet()) {
