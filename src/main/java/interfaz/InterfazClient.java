@@ -252,36 +252,41 @@ public class InterfazClient extends JFrame implements ActionListener {
                 Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
                 cardIcon2 = new ImageIcon(scaledImg2);
                 anteriorCarta.setIcon(cardIcon2);
-            }
-
-        }
 
 
+                //SELECCIONAR LA CARTA SI ESTA EN EL CARTON
+                //Botones de las cartas
+                Component[] botones = panelCartas.getComponents();
 
-        if(e.getSource() == ultimaCarta){
-            //Botones de las cartas
-            Component[] botones = panelCartas.getComponents();
+                for (int i = 0; i <cartonEjemplo.getCarton().length ; i++) {
+                    for (int j = 0; j <cartonEjemplo.getCarton()[i].length ; j++) {
+                        if(cartonEjemplo.getCarton()[i][j].equals(cartaRonda)){
+                            cartonEjemplo.getCarton()[i][j].setEstaMarcado(true);
+                            if(i==0){
+                                botones[j].setBackground(Color.GREEN);
+                            }else if(i==1){
+                                botones[j+5].setBackground(Color.GREEN);
+                            } else if(i==2){
+                                botones[j+10].setBackground(Color.GREEN);
+                            } else if(i==3){
+                                botones[j+15].setBackground(Color.GREEN);
+                            }else if(i==4){
+                                botones[j+20].setBackground(Color.GREEN);
+                            }
 
-            for (int i = 0; i <cartonEjemplo.getCarton().length ; i++) {
-                for (int j = 0; j <cartonEjemplo.getCarton()[i].length ; j++) {
-                    if(cartonEjemplo.getCarton()[i][j].equals(cartaRonda)){
-                        cartonEjemplo.getCarton()[i][j].setEstaMarcado(true);
-                        if(i==0){
-                            botones[j].setBackground(Color.GREEN);
-                        }else if(i==1){
-                            botones[j+5].setBackground(Color.GREEN);
-                        } else if(i==2){
-                            botones[j+10].setBackground(Color.GREEN);
-                        } else if(i==3){
-                            botones[j+15].setBackground(Color.GREEN);
-                        }else if(i==4){
-                            botones[j+20].setBackground(Color.GREEN);
+                            break;
                         }
-
-                        break;
+                    }
+                }
+                if(partida.premio(cartonEjemplo)!=null){
+                    String premioRnd = partida.premio(cartonEjemplo);
+                    if(!partida.getPremios().contains(partida.premio(cartonEjemplo))){
+                        JOptionPane.showMessageDialog(this, "Has ganado el premio de "+ premioRnd);
+                        partida.añadirPremio(premioRnd);
                     }
                 }
             }
+
         }
 
     }

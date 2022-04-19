@@ -4,8 +4,11 @@ import pokino.Baraja;
 import pokino.Carta;
 import pokino.Carton;
 
+import java.util.ArrayList;
+
 public class Match {
     private Baraja barajaJuego = new Baraja();
+    private ArrayList<String> premios = new ArrayList<>();
 
     public Match() {
     }
@@ -24,5 +27,15 @@ public class Match {
         return cartaRonda;
     }
 
+    public Baraja getBarajaJuego() {
+        return barajaJuego;
+    }
 
+    public ArrayList<String> getPremios() {
+        return premios;
+    }
+
+    public void añadirPremio(String premio){
+        premios.add(premio);
+    }
 }
