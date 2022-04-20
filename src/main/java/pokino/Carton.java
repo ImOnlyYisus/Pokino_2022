@@ -8,13 +8,13 @@ public class Carton {
 
     public Carton() {
 //        temporar
-      /* carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, true), new Carta(Simbolo.OROS, 0, true)},
+      carton = new Carta[][]{
+                {new Carta(Simbolo.COPAS, 1, false), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, true), new Carta(Simbolo.OROS, 0, true)},
                {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
                {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
-              {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
-               {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, false), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, false)}
-      };*/
+              {new Carta(Simbolo.COPAS, 2, true), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
+               {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, false)}
+      };
         this.map = rellenarElMap();
     }
 
@@ -201,10 +201,10 @@ public class Carton {
         Map<String, Boolean> comprobacion = new HashMap<>();
         map.forEach((premio, casilla) -> {
             if(premio.equals("Estampa")){
-                  if(carton[casilla.get(0).getI()][casilla.get(0).getJ()].isEstaMarcado()&& carton[casilla.get(0).getI()][casilla.get(1).getJ()].isEstaMarcado() && carton[casilla.get(1).getI()][casilla.get(0).getJ()].isEstaMarcado() &&  carton[casilla.get(1).getI()][casilla.get(1).getJ()].isEstaMarcado()
-                  || carton[casilla.get(0).getI()][casilla.get(3).getJ()].isEstaMarcado()&&carton[casilla.get(0).getI()][casilla.get(4).getJ()].isEstaMarcado() && carton[casilla.get(1).getI()][casilla.get(3).getJ()].isEstaMarcado()&&carton[casilla.get(1).getI()][casilla.get(4).getJ()].isEstaMarcado()
-                  || carton[casilla.get(3).getI()][casilla.get(0).getJ()].isEstaMarcado()&&carton[casilla.get(3).getI()][casilla.get(1).getJ()].isEstaMarcado() && carton[casilla.get(4).getI()][casilla.get(0).getJ()].isEstaMarcado()&&carton[casilla.get(4).getI()][casilla.get(1).getJ()].isEstaMarcado() ||
-                     carton[casilla.get(3).getI()][casilla.get(3).getJ()].isEstaMarcado()&& carton[casilla.get(3).getI()][casilla.get(4).getJ()].isEstaMarcado() && carton[casilla.get(4).getI()][casilla.get(3).getJ()].isEstaMarcado()&& carton[casilla.get(4).getI()][casilla.get(4).getJ()].isEstaMarcado()){
+                  if(carton[casilla.get(0).getI()][casilla.get(0).getJ()].isEstaMarcado()&& carton[casilla.get(1).getI()][casilla.get(1).getJ()].isEstaMarcado() && carton[casilla.get(2).getI()][casilla.get(2).getJ()].isEstaMarcado() &&  carton[casilla.get(3).getI()][casilla.get(3).getJ()].isEstaMarcado()
+                  || carton[casilla.get(4).getI()][casilla.get(4).getJ()].isEstaMarcado()&&carton[casilla.get(5).getI()][casilla.get(5).getJ()].isEstaMarcado() && carton[casilla.get(6).getI()][casilla.get(6).getJ()].isEstaMarcado()&&carton[casilla.get(7).getI()][casilla.get(7).getJ()].isEstaMarcado()
+                  || carton[casilla.get(8).getI()][casilla.get(8).getJ()].isEstaMarcado()&&carton[casilla.get(9).getI()][casilla.get(9).getJ()].isEstaMarcado() && carton[casilla.get(10).getI()][casilla.get(10).getJ()].isEstaMarcado()&&carton[casilla.get(11).getI()][casilla.get(11).getJ()].isEstaMarcado() ||
+                     carton[casilla.get(12).getI()][casilla.get(12).getJ()].isEstaMarcado()&& carton[casilla.get(13).getI()][casilla.get(13).getJ()].isEstaMarcado() && carton[casilla.get(14).getI()][casilla.get(14).getJ()].isEstaMarcado()&& carton[casilla.get(15).getI()][casilla.get(15).getJ()].isEstaMarcado()){
                       comprobacion.put(premio, true);
              }
             }else if(premio.equals("Poker")){
