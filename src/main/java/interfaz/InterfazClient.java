@@ -31,8 +31,6 @@ public class InterfazClient extends JFrame implements ActionListener {
     private JButton anteriorCarta = new JButton();
     private JLabel anteriorCartaText = new JLabel("ANTER. CARTA");
 
-    private Carta posibleCartaRonda = null;
-
 
     public InterfazClient() {
         super("Pokino 2022 <<Jesus & Hind>>");
@@ -91,16 +89,17 @@ public class InterfazClient extends JFrame implements ActionListener {
                 JToggleButton boton = new JToggleButton(cardIcon);
                 boton.setPreferredSize(new Dimension(80, 115));
 
-                if (cartaRonda.equals(cartonEjemplo.getCarton()[i][j])) {
-                    posibleCartaRonda = cartonEjemplo.getCarton()[i][j];
                     boton.addActionListener(new ActionListener() { //Evento
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            posibleCartaRonda.setEstaMarcado(true);
-                            boton.setBackground(Color.green);
+                            if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
+                                boton.setBackground(Color.green);
+                                cartonEjemplo.buscarCarta(cartaRonda).setEstaMarcado(true);
+                            }
+
                         }
                     });
-                }
+
                 panelCartas.add(boton);
             }
         }
@@ -247,22 +246,11 @@ public class InterfazClient extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nextRoundBtn) {
             if (toggleMode.isSelected()) { //Modo automatico
-                Carta rondaAnterior = cartaRonda;
-                cartaRonda = partida.nextCarta();
                 if (partida.comprobarPokino(cartonEjemplo)) {
                     JOptionPane.showMessageDialog(this, "Has ganado el premio de pokino +\nSE HA ACABADO LA PARTIDA");
 
                 } else {
-                    String route = "src/main/java/interfaz/images/" + cartaRonda.getSimbolo() + "_" + cartaRonda.getNumero() + ".jpg";
-                    Icon cardIcon = new ImageIcon(route);
-                    Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
-                    cardIcon = new ImageIcon(scaledImg);
-                    ultimaCarta.setIcon(cardIcon);
-
-                    Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/" + rondaAnterior.getSimbolo() + "_" + rondaAnterior.getNumero() + ".jpg");
-                    Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
-                    cardIcon2 = new ImageIcon(scaledImg2);
-                    anteriorCarta.setIcon(cardIcon2);
+                    pasarRonda();
 
 
                     //SELECCIONAR LA CARTA SI ESTA EN EL CARTON
@@ -320,12 +308,38 @@ public class InterfazClient extends JFrame implements ActionListener {
                             }
                             break;
                         }
+
                     }
                 }
+
+                if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
+                    if (cartonEjemplo.buscarCarta(cartaRonda).isEstaMarcado()) {
+                        pasarRonda();
+                    }
+                } else {
+                    pasarRonda();
+                }
+
             }
 
         }
 
+    }
+
+    private void pasarRonda() {
+        Carta rondaAnterior = cartaRonda;
+        cartaRonda = partida.nextCarta();
+
+        String route = "src/main/java/interfaz/images/" + cartaRonda.getSimbolo() + "_" + cartaRonda.getNumero() + ".jpg";
+        Icon cardIcon = new ImageIcon(route);
+        Image scaledImg = ((ImageIcon) cardIcon).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
+        cardIcon = new ImageIcon(scaledImg);
+        ultimaCarta.setIcon(cardIcon);
+
+        Icon cardIcon2 = new ImageIcon("src/main/java/interfaz/images/" + rondaAnterior.getSimbolo() + "_" + rondaAnterior.getNumero() + ".jpg");
+        Image scaledImg2 = ((ImageIcon) cardIcon2).getImage().getScaledInstance(65, 105, java.awt.Image.SCALE_SMOOTH);
+        cardIcon2 = new ImageIcon(scaledImg2);
+        anteriorCarta.setIcon(cardIcon2);
     }
 
 }
