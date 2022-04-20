@@ -8,13 +8,13 @@ public class Carton {
 
     public Carton() {
 //        temporar
-      carton = new Carta[][]{
-                {new Carta(Simbolo.COPAS, 1, false), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, true), new Carta(Simbolo.OROS, 0, true)},
-               {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
-               {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
-              {new Carta(Simbolo.COPAS, 2, true), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
-               {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, false)}
-      };
+//      carton = new Carta[][]{
+//                {new Carta(Simbolo.COPAS, 1, false), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, false), new Carta(Simbolo.SOTA, 9, true), new Carta(Simbolo.OROS, 0, true)},
+//               {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
+//               {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
+//              {new Carta(Simbolo.COPAS, 2, true), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
+//               {new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, false), new Carta(Simbolo.OROS, 5, false)}
+//      };
         this.map = rellenarElMap();
     }
 
@@ -227,6 +227,18 @@ public class Carton {
                 return entry.getKey();
             }
         }
+        return null;
+    }
+
+    public Carta buscarCarta(Carta cartaRonda){
+        for (int i = 0; i < carton.length ; i++) {
+            for (int j = 0; j <carton[i].length ; j++) {
+                if(cartaRonda.equals(carton[i][j])){
+                    return carton[i][j];
+                }
+            }
+        }
+
         return null;
     }
 }
