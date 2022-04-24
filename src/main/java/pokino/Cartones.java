@@ -24,6 +24,7 @@ public class Cartones {
             rellenarF2(carton, baraja2Trio, baraja2Pareja);
             rellenarCentro(carton);
             rellenarNullos(carton);
+            cartones.get(i).rellenarElMap();
 
         }
     }
@@ -112,7 +113,7 @@ public class Cartones {
         }
     }
 
-    //Rellenar todos los null, introduciendo una carta aleatoria, sin que se repita en la baraja
+    //Fill all the null values with a random card without repit
     private void rellenarNullos(Carta[][] carton) {
         Baraja baraja = new Baraja();
         Carta cartaAleatoria;

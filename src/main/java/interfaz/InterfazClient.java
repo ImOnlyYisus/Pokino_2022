@@ -11,13 +11,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.CookieHandler;
+import java.util.Random;
 
 public class InterfazClient extends JFrame implements ActionListener {
-    private Cartones cartones = new Cartones();
-    private Carton cartonEjemplo = cartones.getCartones().get(0);
-    private Match partida = new Match();
-    private Carta cartaRonda = partida.nextCarta();
+    private static Random rd = new Random();
+    private Cartones cartones = new Cartones(); //Twelves cartones
+    private Carton cartonEjemplo = cartones.getCartones().get(rd.nextInt(cartones.getCartones().size())); //Random carton on the "cartones"
+    private Match partida = new Match(); //Match contains utils methods
+    private Carta cartaRonda = partida.nextCarta(); //To known which card is showing at the moment
 
+    //Interface components
     private JRadioButton toggleMode = new JRadioButton("Modo Automatico");
     private JPanel panelPrincipal = new JPanel();
     private JLabel tiempo = new JLabel("");
@@ -44,9 +47,6 @@ public class InterfazClient extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //Timer
-//        Thread hiloCrono = new Thread(new Cronotimer(tiempo));
 
     }
 
@@ -79,7 +79,7 @@ public class InterfazClient extends JFrame implements ActionListener {
         panelCartas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         panelCartas.setLayout(new java.awt.GridLayout(5, 5, 3, 3));
 
-
+        //Matrix of buttons with images
         for (int i = 0; i < cartonEjemplo.getCarton().length; i++) {
             for (int j = 0; j < cartonEjemplo.getCarton()[i].length; j++) {
                 String route = "src/main/java/interfaz/images/" + cartonEjemplo.getCarton()[i][j].getSimbolo().toString().toUpperCase() + "_" + cartonEjemplo.getCarton()[i][j].getNumero() + ".jpg";
@@ -89,7 +89,8 @@ public class InterfazClient extends JFrame implements ActionListener {
                 JToggleButton boton = new JToggleButton(cardIcon);
                 boton.setPreferredSize(new Dimension(80, 115));
 
-                    boton.addActionListener(new ActionListener() { //Evento
+                    //Envent: when the button is pressed, the card is selected
+                    boton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
@@ -244,19 +245,22 @@ public class InterfazClient extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //When the user clicks on the next round button
         if (e.getSource() == nextRoundBtn) {
-            if (toggleMode.isSelected()) { //Modo automatico
+            //If the game is in the auto mode
+            if (toggleMode.isSelected()) {
+                //If pokino is true, the game is over
                 if (partida.comprobarPokino(cartonEjemplo)) {
                     JOptionPane.showMessageDialog(this, "Has ganado el premio de pokino +\nSE HA ACABADO LA PARTIDA");
 
                 } else {
+                    //If the game is not over, the next round is played
                     pasarRonda();
 
-
-                    //SELECCIONAR LA CARTA SI ESTA EN EL CARTON
-                    //Botones de las cartas
+                    //Cards components
                     Component[] botones = panelCartas.getComponents();
 
+                    //Check if the cartaRonda is in the panel and if it is, mark it as selected and the background is changed to green
                     for (int i = 0; i < cartonEjemplo.getCarton().length; i++) {
                         for (int j = 0; j < cartonEjemplo.getCarton()[i].length; j++) {
                             if (cartonEjemplo.getCarton()[i][j].equals(cartaRonda)) {
@@ -277,6 +281,8 @@ public class InterfazClient extends JFrame implements ActionListener {
                             }
                         }
                     }
+
+                    //Check the others prizes (poker, full, esquina, estampa)
                     if (partida.premio(cartonEjemplo) != null) {
                         String premioRnd = partida.premio(cartonEjemplo);
                         if (!partida.getPremios().contains(partida.premio(cartonEjemplo))) {
@@ -286,10 +292,12 @@ public class InterfazClient extends JFrame implements ActionListener {
                     }
                 }
 
-            } else {
-                //Botones de las cartas
+            } else { //If the game is in the manual mode
+                //Cards components
                 Component[] botones = panelCartas.getComponents();
 
+                //If the player press ""Next round"" button and the cards is in the panel, the background of the card button changes to orange to notify the user
+                //that the card is not selected
                 for (int i = 0; i < cartonEjemplo.getCarton().length; i++) {
                     for (int j = 0; j < cartonEjemplo.getCarton()[i].length; j++) {
                         if (cartonEjemplo.getCarton()[i][j].equals(cartaRonda)) {
@@ -312,6 +320,7 @@ public class InterfazClient extends JFrame implements ActionListener {
                     }
                 }
 
+                //If the card has been selected, the round is passed
                 if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
                     if (cartonEjemplo.buscarCarta(cartaRonda).isEstaMarcado()) {
                         pasarRonda();
@@ -326,7 +335,9 @@ public class InterfazClient extends JFrame implements ActionListener {
 
     }
 
+    //Method that passes the round
     private void pasarRonda() {
+        //Change the cards that is showing in the panel
         Carta rondaAnterior = cartaRonda;
         cartaRonda = partida.nextCarta();
 
