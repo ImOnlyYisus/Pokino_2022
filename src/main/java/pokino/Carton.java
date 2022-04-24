@@ -8,13 +8,13 @@ public class Carton {
 
     public Carton() {
 //        temporar
-//      carton = new Carta[][]{
-//                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.COPAS, 0, true), new Carta(Simbolo.SOTA, 0, true), new Carta(Simbolo.SOTA, 9, true), new Carta(Simbolo.OROS, 0, true)},
-//               {new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.SOTA, 2, true), new Carta(Simbolo.COPAS, 3, true), new Carta(Simbolo.SOTA, 3, true), new Carta(Simbolo.OROS, 9, true)},
-//               {new Carta(Simbolo.OROS, 1, true), new Carta(Simbolo.OROS, 3, true), new Carta(Simbolo.COPAS, 4, true), new Carta(Simbolo.SOTA, 5, true), new Carta(Simbolo.OROS, 3, true)},
-//              {new Carta(Simbolo.COPAS, 2, true), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
-//               {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, true), new Carta(Simbolo.SOTA, 6, true), new Carta(Simbolo.OROS, 5, true)}
-//      };
+      carton = new Carta[][]{
+                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.OROS, 1, true), new Carta(Simbolo.OROS, 12, true)},
+               {new Carta(Simbolo.SOTA, 1, false), new Carta(Simbolo.SOTA, 2, false), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, false), new Carta(Simbolo.OROS, 9, false)},
+               {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
+              {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
+               {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, true), new Carta(Simbolo.OROS, 5, false)}
+      };
         this.map = rellenarElMap();
     }
 
@@ -159,13 +159,33 @@ public class Carton {
                     map.put("Esquina", esquina);
                     break;
                 case 2:
-                    ArrayList<Casilla> estampa = new ArrayList<>(Arrays.asList(new Casilla(0, 0), new Casilla(0, 1), new Casilla(0, 3), new Casilla(0, 4), new Casilla(1, 0),
-                            new Casilla(1, 1), new Casilla(1, 3), new Casilla(1, 4), new Casilla(3, 0), new Casilla(3, 1),
-                            new Casilla(3, 3), new Casilla(3, 4), new Casilla(4, 0), new Casilla(4, 1), new Casilla(4, 3), new Casilla(4, 4)));
+                    ArrayList<Casilla> estampa = new ArrayList<>(Arrays.asList(new Casilla(0, 0), new Casilla(0, 1), new Casilla(1, 0), new Casilla(1, 1), new Casilla(0, 3),
+                            new Casilla(0, 4), new Casilla(1, 3), new Casilla(1, 4), new Casilla(3, 0), new Casilla(3, 1),
+                            new Casilla(4, 0), new Casilla(4, 1), new Casilla(3, 3), new Casilla(3, 4), new Casilla(4, 3), new Casilla(4, 4)));
                     map.put("Estampa", estampa);
                     break;
                 case 3:
                     ArrayList<Casilla> poker = new ArrayList<>();
+                    int cont = 0;
+                    for (int j = 0; j <carton[0].length ; j++) {
+                        if(carton[0][0].getNumero()==carton[0][j].getNumero()){
+                            cont++;
+                        }
+                    }
+
+                    //Añadir las 4 cartas del mismo numero
+                    if(cont==0){
+                        for (int j = 1; j <carton[0].length ; j++) {
+                            poker.add(new Casilla(0,j));
+                        }
+                    }else if(cont>0){
+                        for (int j = 0; j <carton[0].length ; j++) {
+                            if(carton[0][0].getNumero() == carton[0][j].getNumero()){ //Mira si el numero es el mismo de las cartas iguales
+                                poker.add(new Casilla(0,j));
+                            }
+                        }
+                    }
+
                     map.put("Poker", poker);
                     break;
                 case 4:
@@ -199,7 +219,29 @@ public class Carton {
                       comprobacion.put(premio, true);
              }
             }else if(premio.equals("Poker")){
+                Carta cartaDistinta = null;
+                for (int i = 0; i <carton[0].length ; i++) {
+                    if(carton[casilla.get(0).getI()][casilla.get(0).getJ()].getNumero()!= carton[0][i].getNumero()){
+                        cartaDistinta=carton[0][i];
+                        System.out.println(carton[0][i]);
+                        break;
+                    }
+                }
 
+                boolean esPoker = true;
+                if(cartaDistinta!=null){
+                    if(!cartaDistinta.isEstaMarcado()){
+                        for (int i = 0; i <carton[0].length ; i++) {
+                            if(!carton[casilla.get(0).getI()][casilla.get(0).getI()].isEstaMarcado()){
+                                esPoker=false;
+                                break;
+                            }
+                        }
+                        if(esPoker){
+                            comprobacion.put(premio,true);
+                        }
+                    }
+                }
             }
             else{
                 for (int i = 0; i < casilla.size(); i++) {
