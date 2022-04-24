@@ -89,17 +89,17 @@ public class InterfazClient extends JFrame implements ActionListener {
                 JToggleButton boton = new JToggleButton(cardIcon);
                 boton.setPreferredSize(new Dimension(80, 115));
 
-                    //Envent: when the button is pressed, the card is selected
-                    boton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
-                                boton.setBackground(Color.green);
-                                cartonEjemplo.buscarCarta(cartaRonda).setEstaMarcado(true);
-                            }
-
+                //Envent: when the button is pressed, the card is selected
+                boton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
+                            boton.setBackground(Color.green);
+                            cartonEjemplo.buscarCarta(cartaRonda).setEstaMarcado(true);
                         }
-                    });
+
+                    }
+                });
 
                 panelCartas.add(boton);
             }
@@ -295,38 +295,53 @@ public class InterfazClient extends JFrame implements ActionListener {
             } else { //If the game is in the manual mode
                 //Cards components
                 Component[] botones = panelCartas.getComponents();
+                if (partida.comprobarPokino(cartonEjemplo)) {
+                    JOptionPane.showMessageDialog(this, "Has ganado el premio de pokino +\nSE HA ACABADO LA PARTIDA");
 
-                //If the player press ""Next round"" button and the cards is in the panel, the background of the card button changes to orange to notify the user
-                //that the card is not selected
-                for (int i = 0; i < cartonEjemplo.getCarton().length; i++) {
-                    for (int j = 0; j < cartonEjemplo.getCarton()[i].length; j++) {
-                        if (cartonEjemplo.getCarton()[i][j].equals(cartaRonda)) {
-                            if (!cartonEjemplo.getCarton()[i][j].isEstaMarcado()) {
-                                if (i == 0) {
-                                    botones[j].setBackground(Color.orange);
-                                } else if (i == 1) {
-                                    botones[j + 5].setBackground(Color.orange);
-                                } else if (i == 2) {
-                                    botones[j + 10].setBackground(Color.orange);
-                                } else if (i == 3) {
-                                    botones[j + 15].setBackground(Color.orange);
-                                } else if (i == 4) {
-                                    botones[j + 20].setBackground(Color.orange);
+                } else {
+
+
+                    //If the player press ""Next round"" button and the cards is in the panel, the background of the card button changes to orange to notify the user
+                    //that the card is not selected
+                    for (int i = 0; i < cartonEjemplo.getCarton().length; i++) {
+                        for (int j = 0; j < cartonEjemplo.getCarton()[i].length; j++) {
+                            if (cartonEjemplo.getCarton()[i][j].equals(cartaRonda)) {
+                                if (!cartonEjemplo.getCarton()[i][j].isEstaMarcado()) {
+                                    if (i == 0) {
+                                        botones[j].setBackground(Color.orange);
+                                    } else if (i == 1) {
+                                        botones[j + 5].setBackground(Color.orange);
+                                    } else if (i == 2) {
+                                        botones[j + 10].setBackground(Color.orange);
+                                    } else if (i == 3) {
+                                        botones[j + 15].setBackground(Color.orange);
+                                    } else if (i == 4) {
+                                        botones[j + 20].setBackground(Color.orange);
+                                    }
                                 }
+                                break;
                             }
-                            break;
+
                         }
-
                     }
-                }
 
-                //If the card has been selected, the round is passed
-                if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
-                    if (cartonEjemplo.buscarCarta(cartaRonda).isEstaMarcado()) {
+                    //Check the others prizes (poker, full, esquina, estampa)
+                    if (partida.premio(cartonEjemplo) != null) {
+                        String premioRnd = partida.premio(cartonEjemplo);
+                        if (!partida.getPremios().contains(partida.premio(cartonEjemplo))) {
+                            JOptionPane.showMessageDialog(this, "Has ganado el premio de " + premioRnd);
+                            partida.añadirPremio(premioRnd);
+                        }
+                    }
+
+                    //If the card has been selected, the round is passed
+                    if (cartonEjemplo.buscarCarta(cartaRonda) != null) {
+                        if (cartonEjemplo.buscarCarta(cartaRonda).isEstaMarcado()) {
+                            pasarRonda();
+                        }
+                    } else {
                         pasarRonda();
                     }
-                } else {
-                    pasarRonda();
                 }
 
             }
