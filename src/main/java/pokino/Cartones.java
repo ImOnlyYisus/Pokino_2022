@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Cartones {
+    //attributes
     private ArrayList<Carton> cartones = new ArrayList<>();
 
-
+    //constrictor
     public Cartones() {
         inicializarDoceCartones();
     }
@@ -140,6 +141,7 @@ public class Cartones {
         }
     }
 
+    //look if the carte exist in the carton
     private boolean estaLaCarta(int numCarta,Carta[][] carton){
         for (int i = 0; i <carton.length ; i++) {
             for (int j = 0; j <carton[i].length ; j++) {

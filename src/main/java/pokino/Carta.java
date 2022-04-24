@@ -3,16 +3,20 @@ package pokino;
 import java.util.Objects;
 
 public class Carta {
+    //attributes
     private Simbolo simbolo;
     private int numero;
+    //knowing the state of card if marked or not
     private boolean estaMarcado;
 
+   //constrictor
     public Carta(Simbolo simbolo, int numero,boolean estaMarcado) {
         this.simbolo = simbolo;
         this.numero = numero;
         this.estaMarcado=estaMarcado;
     }
 
+    //setters and getters
     public Simbolo getSimbolo() {
         return simbolo;
     }

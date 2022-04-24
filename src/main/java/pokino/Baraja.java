@@ -6,8 +6,10 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Baraja {
+    //attributes
     private ArrayList<Carta> cartas = new ArrayList<>();
 
+    //constrictor
     public Baraja() {
         inicializarBaraja();
     }
@@ -53,7 +55,7 @@ public class Baraja {
         cartas.remove(carta);
     }
 
-    //Method that search a card by passing the number by parameter
+    //Method that search a card by passing the number as parameter
     public Carta buscarCartaNumero(int numero){
        Carta cartaBuscada=null;
        Comparator<Carta> criterioNumero = (c1,c2)-> Integer.compare(c1.getNumero(),c2.getNumero());
@@ -67,7 +69,7 @@ public class Baraja {
         return cartaBuscada;
     }
 
-    //Method that search all cards in the baraja by passing the number by parameter
+    //Method that search all cards in the baraja by passing the number as parameter
     public ArrayList<Carta> buscarCartasNumeros(int numero){
         ArrayList<Carta> cartasBuscadas=new ArrayList<>();
         for (int i = 0; i <cartas.size() ; i++) {
