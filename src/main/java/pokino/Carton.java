@@ -11,13 +11,13 @@ public class Carton {
     public Carton() {
         //temporal,only for test
 //      carton = new Carta[][]{
-//                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.OROS, 1, true), new Carta(Simbolo.OROS, 12, false)},
+//                {new Carta(Simbolo.COPAS, 1, true), new Carta(Simbolo.ESPADAS, 1, true), new Carta(Simbolo.SOTA, 1, true), new Carta(Simbolo.OROS, 12, true), new Carta(Simbolo.OROS, 1, true)},
 //               {new Carta(Simbolo.SOTA, 1, false), new Carta(Simbolo.SOTA, 2, false), new Carta(Simbolo.COPAS, 3, false), new Carta(Simbolo.SOTA, 3, false), new Carta(Simbolo.OROS, 9, false)},
 //               {new Carta(Simbolo.OROS, 1, false), new Carta(Simbolo.OROS, 3, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.SOTA, 5, false), new Carta(Simbolo.OROS, 3, false)},
 //              {new Carta(Simbolo.COPAS, 2, false), new Carta(Simbolo.COPAS, 4, false), new Carta(Simbolo.COPAS, 6, false), new Carta(Simbolo.SOTA, 8, false), new Carta(Simbolo.OROS, 4, false)},
 //               {new Carta(Simbolo.ESPADAS, 1, false), new Carta(Simbolo.ESPADAS, 5, true), new Carta(Simbolo.COPAS, 8, false), new Carta(Simbolo.SOTA, 6, true), new Carta(Simbolo.OROS, 5, false)}
 //      };
-        //calling a methode for filling up the map
+//        //calling a methode for filling up the map
 //        this.map = rellenarElMap();
     }
 
@@ -258,15 +258,11 @@ public class Carton {
                 boolean esPoker = true;
                 if (cartaDistinta != null) {
                     if (!cartaDistinta.isEstaMarcado()) {
-                        for (int i = 0; i < carton[0].length; i++) {
-                            if (!carton[casilla.get(0).getI()][casilla.get(0).getI()].isEstaMarcado()) {
-                                esPoker = false;
-                                break;
-                            }
-                        }
-                        if (esPoker) {
+                        if(carton[casilla.get(0).getI()][casilla.get(0).getJ()].isEstaMarcado() && carton[casilla.get(1).getI()][casilla.get(1).getJ()].isEstaMarcado() &&
+                                carton[casilla.get(2).getI()][casilla.get(2).getJ()].isEstaMarcado() && carton[casilla.get(3).getI()][casilla.get(3).getJ()].isEstaMarcado()){
                             comprobacion.put(premio, true);
                         }
+
                     }
                 }
             } else {
